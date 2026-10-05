@@ -3,7 +3,7 @@ RED_SEP     = @printf "\033[41m \033[49m  "
 
 
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror
+CFLAGS      = -Wall -Wextra -Werror -pthread
 
 RM          = rm -rf
 
