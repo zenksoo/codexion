@@ -1,13 +1,8 @@
 #include "codexion.h"
-#include <asm-generic/errno-base.h>
-#include <stdbool.h>
-#include <threads.h>
-#include <stdio.h>
+#include <getopt.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-
-typedef enum {
-    INVALID_ARGUMENT
-} Errors;
 
 void *t_func(void *p) {
     while (1) {
@@ -18,30 +13,22 @@ void *t_func(void *p) {
 }
 
 
-int ft_atoi(char *target) {
-    unsigned int num = 0;
-    int sign = 1;
-
-    while (*target == '\t' || *target == ' ')
-        target++;
-    while (*target == '-' || *target == '+') {
-        if (*target == '-') {
-            sign *= -1;
-        }
-        target++;
+void _display_error(Errors err_status) {
+    if (err_status == MISSING_ARGUMENT) {
+        _ft_putstr("\033[41m  MISSING ARGUMENT  \033[49m\n");
+        _ft_putstr("\tmissing requirements arguments\n");
+        _ft_putstr("\tusage: ./codexion nc<int> tb<int> tc<int> td<int> tr<int> ncr<int> dc<int> s<str>\n");
     }
-
-    while (*target <= '9' && *target >= '0') {
-        num = (num * 10) + (*target - '0');
-        target++;
-    }
-    return (int)(num * sign);
 }
 
-
-void _display_error(Errors status) {
-    if (status == 0)
-        printf("invalid argument error\n");
+void print_help(const char *prog_name) {
+    printf("\nUsage: %s [options | arguments]\n", prog_name);
+    printf("Options:\n");
+    printf("  -h, --help    Show this help message and exit\n");
+    printf("Arguments:\n");
+    printf("  number_of_coders\n");
+    printf("  time_to_burnout\n");
+    printf("  time_to_compile\n");
 
 }
 
@@ -56,12 +43,28 @@ int main(int argc, char *argv[]) {
     // int dongle_cooldown;
     // int scheduler;
 
+    int opt;
+
+    while ((opt = getopt_long(argc, argv, "h", log_options, NULL)) != -1) {
+        switch (opt) {
+            case 'h':
+                print_help(argv[0]);
+                exit(EXIT_SUCCESS);
+                break;
+        
+        }
+    }
+
 
 
     if (argc == 9)
         printf("%s\n", argv[0]);
-    else
-        _display_error(INVALID_ARGUMENT);
+    else if (argc == 2)
+        printf("hehehe");
+    else {
+        _display_error(MISSING_ARGUMENT);
+        exit(1);
+    }
 
     printf("%d\n", ft_atoi("       --2147483647"));
 

@@ -9,7 +9,7 @@ RM          = rm -rf
 
 NAME        = codexion
 
-FILES       = main.c
+FILES       = main.c commons.c
 BUILD_DIR   = build/
 
 SRC_DIR     = src/
