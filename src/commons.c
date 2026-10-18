@@ -3,42 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   commons.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zenkso <zenkso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:52:14 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/18 13:47:16 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/18 13:54:59 by zenkso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <stdio.h>
 
-void	_display_error(Errors err_status, void *extra_msg)
+int _display_error(Errors err_status, void *extra_msg)
 {
 	if (err_status == MISSING_ARGUMENT)
 	{
-		printf("\033[41m  MISSING ARGUMENT  \033[49m\n");
-		printf("    missing requirements arguments\n");
-		printf("    usage:\n\t ./codexion ");
-		printf("\n\t\t(int)<number_of_coders>");
-		printf("\n\t\t(int)<time_to_burnout>");
-		printf("\n\t\t(int)<time_to_compile>");
-		printf("\n\t\t(int)<time_to_debug>");
-		printf("\n\t\t(int)<time_to_refactor>");
-		printf("\n\t\t(int)<number_of_compiles_required>");
-		printf("\n\t\t(int)<dongle_cooldown>\n\t\t<scheduler>(str)\n");
-		exit(1);
+		fprintf(stderr, "\033[41m  MISSING ARGUMENT  \033[49m\n");
+		fprintf(stderr, "    missing requirements arguments\n");
+		fprintf(stderr, "    usage:\n\t ./codexion ");
+		fprintf(stderr, "\n\t\t(int)<number_of_coders>");
+		fprintf(stderr, "\n\t\t(int)<time_to_burnout>");
+		fprintf(stderr, "\n\t\t(int)<time_to_compile>");
+		fprintf(stderr, "\n\t\t(int)<time_to_debug>");
+		fprintf(stderr, "\n\t\t(int)<time_to_refactor>");
+		fprintf(stderr, "\n\t\t(int)<number_of_compiles_required>");
+		fprintf(stderr, "\n\t\t(int)<dongle_cooldown>\n\t\t<scheduler>(str)\n");
 	}
 	else if (err_status == EXTRA_ARGUMENT)
 	{
-		printf("\033[41m  EXTRA ARGUMENT  \033[49m\n");
-		printf("	extra argument is given\n");
-		exit(1);
+		fprintf(stderr, "\033[41m  EXTRA ARGUMENT  \033[49m\n");
+		fprintf(stderr, "	extra argument is given\n");
 	}
 	else if (err_status == INVALID_ARGUMENT) {
-		printf("\033[41m  INVALID ARGUMENT  \033[49m\n\n");
+		fprintf(stderr, "\033[41m  INVALID ARGUMENT  \033[49m\n\n");
 		if (extra_msg)
-		{	printf("%s\n", (char *)extra_msg);
+		{	fprintf(stderr, "%s\n", (char *)extra_msg);
 		}
-		exit(1);
 	}
+    return 1;
 }

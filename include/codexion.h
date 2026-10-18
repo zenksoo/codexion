@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zenkso <zenkso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:58:33 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/18 13:37:22 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/18 13:51:10 by zenkso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ typedef struct t_arguments {
 }	t_args;
 
 
-void	_display_error(Errors err_status, void *extra_msg);
+int	_display_error(Errors err_status, void *extra_msg);
 
 #endif
