@@ -3,11 +3,11 @@
 
 #include <getopt.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <pthread.h>
-#include <stdlib.h>
 
-// remote at the end 
+// remote at the end
 #include <stdio.h>
 
 typedef enum {
@@ -15,13 +15,15 @@ typedef enum {
     INVALID_ARGUMENT,
 } Errors;
 
-int ft_atoi(char *target);
-void _ft_putstr(char *str);
-void _print_help();
-
-struct option log_options[] = {
-    {"help", no_argument, NULL, 'h'},
-    {NULL, 0, NULL, 0}
-};
+typedef struct Arguments {
+    int number_of_coders;
+    int time_to_burnout;
+    int time_to_compile;
+    int time_to_debug;
+    int time_to_refactor;
+    int number_of_compiles_required;
+    int dongle_cooldown;
+    char *scheduler;
+} args;
 
 #endif
