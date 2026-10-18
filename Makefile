@@ -4,6 +4,7 @@ RED_SEP     = @printf "\033[41m \033[49m  "
 
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -pthread
+MEM_PROB	= --fsanitize=address -g3
 
 RM          = rm -rf
 
@@ -22,7 +23,7 @@ OBJ = $(addprefix $(BUILD_DIR), $(FILES:.c=.o))
 
 $(NAME): $(BUILD_DIR) $(OBJ)
 	@printf "\033[33m"
-	$(CC) $(CFLAGS) $(OBJ) -o $@
+	$(CC) $(CFLAGS) -fsanitize=address -g3 $(OBJ) -o $@
 	@printf "\033[39m"
 
 
