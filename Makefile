@@ -10,7 +10,7 @@ RM          = rm -rf
 
 NAME        = codexion
 
-FILES       = main.c commons.c
+FILES       = main.c commons.c cli_argparser.c
 BUILD_DIR   = build/
 
 SRC_DIR     = src/
