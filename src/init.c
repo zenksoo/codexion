@@ -6,11 +6,12 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 03:33:31 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/28 08:25:05 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/28 22:21:24 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -30,6 +31,7 @@ int	init_coders(t_table *table)
 		table->coders[i].compile_count = 0;
 		table->coders[i].left = &table->dongles[i];
 		table->coders[i].right = &table->dongles[(i + 1) % table->n];
+		pthread_mutex_init(&table->coders[i].lock, NULL);
 	}
 	return (0);
 }
@@ -47,6 +49,7 @@ int	init_dongles(t_table *table)
 		// init its mutex and cond and init its heap (capacity 2).
 		table->dongles[i].busy = 0;
 		table->dongles[i].available_at = 0;
+		pthread_mutex_init(&table->dongles[i].lock, NULL);
 	}
 	return (0);
 }
@@ -60,6 +63,8 @@ int	init_table(t_table *table, char **cli_args)
 	table->t_refactor = atoi(cli_args[4]);
 	table->compiles_required = atoi(cli_args[5]);
 	table->cooldown = atoi(cli_args[6]);
+	pthread_mutex_init(&table->log_lock, NULL);
+	pthread_mutex_init(&table->state_lock, NULL);
 	if (!strcmp(cli_args[7], "fifo"))
 		table->use_edf = 0;
 	else if (!strcmp(cli_args[7], "edf"))

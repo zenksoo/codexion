@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:58:33 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/28 08:35:00 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/28 22:20:37 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef struct s_heap
 
 typedef struct s_dongle
 {
-	// pthread_mutex_t	lock;
-	// pthread_cond_t	cond;
+	pthread_mutex_t	lock;
+	pthread_cond_t	cond;
 	int				busy;
 	long long		available_at;
 	t_heap			queue;
@@ -59,7 +59,7 @@ typedef struct s_coder
 	t_dongle		*right;
 	long long		last_compile_start;
 	int				compile_count;
-	// pthread_mutex_t	lock;
+	pthread_mutex_t	lock;
 	struct s_table	*table;
 }	t_coder;
 
@@ -75,11 +75,12 @@ typedef struct s_table
 	int				use_edf;
 	long long		start_time;
 	int				stop;
-	// pthread_mutex_t	state_lock;
-	// pthread_mutex_t	log_lock;
+	pthread_mutex_t	state_lock;
+	pthread_mutex_t	log_lock;
 	t_dongle		*dongles;
 	t_coder			*coders;
 	pthread_t		monitor;
+	int				val;
 }	t_table;
 
 int			cli_argument_parser(int argc, char **argv);

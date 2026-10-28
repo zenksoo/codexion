@@ -6,11 +6,12 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:51:59 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/28 08:29:29 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/28 22:46:08 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <pthread.h>
 
 void	display_data(t_table data)
 {
@@ -25,6 +26,23 @@ void	display_data(t_table data)
 	printf("using edf: %d\n", data.use_edf);
 }
 
+void	general_cleanup(t_table table)
+{
+	int	i;
+
+	i = -1;
+	while (++i < table.n)
+	{
+		pthread_mutex_destroy(&table.coders[i].lock);
+		pthread_mutex_destroy(&table.dongles[i].lock);
+	}
+	pthread_mutex_destroy(&table.log_lock);
+	pthread_mutex_destroy(&table.state_lock);
+	free(table.coders);
+	free(table.dongles);
+}
+
+
 int	main(int argc, char *argv[])
 {
 	t_table	table;
@@ -34,8 +52,7 @@ int	main(int argc, char *argv[])
 	if (init_table(&table, argv + 1))
 		return (1);
 	run_simulation(&table);
+	general_cleanup(table);
 	display_data(table);
-	free(table.coders);
-	free(table.dongles);
 	return (0);
 }

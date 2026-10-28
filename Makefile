@@ -3,7 +3,7 @@ RED_SEP     = @printf "\033[41m \033[49m  "
 
 
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -pthread
+CFLAGS      = -g -Wall -Wextra -Werror -pthread
 MEM_PROB	= --fsanitize=address -gdb
 
 RM          = rm -rf
