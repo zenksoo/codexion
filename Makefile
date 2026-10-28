@@ -4,13 +4,13 @@ RED_SEP     = @printf "\033[41m \033[49m  "
 
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -pthread
-MEM_PROB	= --fsanitize=address -g3
+MEM_PROB	= --fsanitize=address -gdb
 
 RM          = rm -rf
 
 NAME        = codexion
 
-FILES       = main.c commons.c cli_argparser.c
+FILES       = main.c commons.c cli_argparser.c simulation.c init.c
 BUILD_DIR   = build/
 
 SRC_DIR     = src/
