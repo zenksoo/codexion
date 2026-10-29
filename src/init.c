@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 03:33:31 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/28 22:21:24 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/29 18:22:16 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	init_dongles(t_table *table)
 	return (0);
 }
 
+
+
 int	init_table(t_table *table, char **cli_args)
 {
 	table->n = atoi(cli_args[0]);
@@ -63,6 +65,7 @@ int	init_table(t_table *table, char **cli_args)
 	table->t_refactor = atoi(cli_args[4]);
 	table->compiles_required = atoi(cli_args[5]);
 	table->cooldown = atoi(cli_args[6]);
+	table->stop = 0;
 	pthread_mutex_init(&table->log_lock, NULL);
 	pthread_mutex_init(&table->state_lock, NULL);
 	if (!strcmp(cli_args[7], "fifo"))

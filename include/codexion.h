@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:58:33 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/28 22:20:37 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/29 18:34:28 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef struct s_table
 	t_dongle		*dongles;
 	t_coder			*coders;
 	pthread_t		monitor;
-	int				val;
 }	t_table;
 
 int			cli_argument_parser(int argc, char **argv);

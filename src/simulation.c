@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 04:45:49 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/28 22:50:18 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/29 23:07:43 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,87 @@
 #include <string.h>
 #include <unistd.h>
 
-void	*coder_routine(t_coder*coder)
+
+void	protected_log(pthread_mutex_t *mutex, long long ms_time, int id, char *msg)
 {
-	for (int i = 0; i < 10000; i++)
-		coder->table->val++;
-	printf("\033[31m%lld %d has taken a dongle\033[39m\n",
-		now_ms() - coder->table->start_time, coder->id);
-	printf("\033[31m%lld %d has taken a dongle\033[39m\n",
-			now_ms() - coder->table->start_time, coder->id);
-
-	pthread_mutex_lock(&coder->lock);
-	coder->last_compile_start = now_ms();
-	pthread_mutex_unlock(&coder->lock);
+	pthread_mutex_lock(mutex);
+	printf("\033[38;5;%dm%lld %d %s\033[39m\n", id, ms_time, id, msg);
+	pthread_mutex_unlock(mutex);
+}
 
 
-	printf("\033[32m%lld %d is compiling\033[39m\n",
-		now_ms() - coder->table->start_time, coder->id);
-	usleep(coder->table->t_compile);
+void	*coder_routine(t_coder *coder)
+{
+	while (!coder->table->stop)
+	{
 
-	printf("\033[33m%lld %d is debugging\033[39m\n",
-		now_ms() - coder->table->start_time, coder->id);
-	usleep(coder->table->t_debug);
+		pthread_mutex_lock(&coder->left->lock);
+		pthread_mutex_lock(&coder->right->lock);
 
-	printf("\033[35m%lld %d is refactoring\033[39m\n",
-		now_ms() - coder->table->start_time, coder->id);
-	usleep(coder->table->t_refactor);
+		protected_log(&coder->table->log_lock,
+			now_ms() - coder->table->start_time,
+			coder->id, "has taken a dongle");
+
+		protected_log(&coder->table->log_lock,
+			now_ms() - coder->table->start_time,
+			coder->id, "has taken a dongle");
+
+		protected_log(&coder->table->log_lock,
+			now_ms() - coder->table->start_time,
+			coder->id, "is compiling");
+
+		pthread_mutex_lock(&coder->lock);
+		coder->last_compile_start = now_ms();
+		pthread_mutex_unlock(&coder->lock);
+
+		usleep(coder->table->t_compile);
+
+		coder->compile_count++;
+
+		pthread_mutex_unlock(&coder->right->lock);
+		pthread_mutex_unlock(&coder->left->lock);
+
+		protected_log(&coder->table->log_lock,
+			now_ms() - coder->table->start_time,
+			coder->id, "is debugging");
+
+		usleep(coder->table->t_debug);
+
+		protected_log(&coder->table->log_lock,
+			now_ms() - coder->table->start_time,
+			coder->id, "is refactoring");
+
+		usleep(coder->table->t_refactor);
+	}
 	return (NULL);
 }
 
 void	*monitor_routine(t_table *table)
 {
-	printf("monitor checking :) %d\n", table->n);
+	int	coder_idx;
+	int	all_reach_required_compilation;
+
+
+	while (!table->stop) {
+		coder_idx = -1;
+		all_reach_required_compilation = 1;
+		while (++coder_idx < table->n)
+		{
+			pthread_mutex_lock(&table->coders[coder_idx].lock);
+			if (now_ms() - table->coders[coder_idx].last_compile_start >= table->t_burnout)
+			{
+				usleep(10000);
+				table->stop = 1;
+				printf("%lld %d burnburned out\n", now_ms() - table->start_time, coder_idx);
+				break;
+			}
+			if (table->coders[coder_idx].compile_count < table->compiles_required)
+				all_reach_required_compilation = 0;
+			pthread_mutex_unlock(&table->coders[coder_idx].lock);
+		}
+		if (all_reach_required_compilation)
+			table->stop = 1;
+	}
 	return (NULL);
 }
 
@@ -55,8 +105,11 @@ void	run_simulation(t_table *table)
 	int	i;
 
 	table->start_time = now_ms();
-	table->val = 0;
 	i = -1;
+	pthread_create(&table->monitor,
+		NULL,
+		(void *(*)(void *))monitor_routine,
+		table);
 	while (++i < table->n)
 	{
 		table->coders[i].last_compile_start = table->start_time;
@@ -64,18 +117,8 @@ void	run_simulation(t_table *table)
 			NULL,
 			(void *(*)(void *))coder_routine,
 			&table->coders[i]);
-		pthread_join(table->coders[i].thread, NULL);
 	}
-	// i = -1;
-	// while (++i < table->n)
-	// 	pthread_join(table->coders[i].thread, NULL);
-
-	printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> %d\n", table->val);
-	pthread_create(&table->monitor,
-		NULL,
-		(void *(*)(void *))monitor_routine,
-		table);
-	pthread_join(table->monitor, NULL);
-
-	pthread_join(table->coders[0].thread, NULL);
+	i = -1;
+	while (++i < table->n)
+		pthread_join(table->coders[i].thread, NULL);
 }
