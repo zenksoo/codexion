@@ -10,7 +10,15 @@ RM          = rm -rf
 
 NAME        = codexion
 
-FILES       = main.c commons.c cli_argparser.c simulation.c init.c
+FILES       = main.c\
+              commons.c\
+			  cli_argparser.c\
+			  simulation.c\
+			  init.c\
+			  coder.c\
+			  monitor.c
+
+
 BUILD_DIR   = build/
 
 SRC_DIR     = src/
@@ -57,4 +65,4 @@ re: fclean all
 
 
 run: $(NAME)
-	@./$(NAME) 4 120000 20000 20000 20000 4 3 fifo
+	@./$(NAME) 4 400 200 200 200 2 200 fifo

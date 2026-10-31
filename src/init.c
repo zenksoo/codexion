@@ -6,14 +6,13 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 03:33:31 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/29 18:22:16 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/31 00:55:51 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <pthread.h>
-#include <stdlib.h>
-#include <string.h>
+#include <time.h>
 
 int	init_coders(t_table *table)
 {
@@ -47,9 +46,11 @@ int	init_dongles(t_table *table)
 	while (++i < table->n)
 	{
 		// init its mutex and cond and init its heap (capacity 2).
+		table->dongles[i].id = i;
 		table->dongles[i].busy = 0;
 		table->dongles[i].available_at = 0;
 		pthread_mutex_init(&table->dongles[i].lock, NULL);
+		pthread_cond_init(&table->dongles[i].cond, NULL);
 	}
 	return (0);
 }
@@ -66,6 +67,7 @@ int	init_table(t_table *table, char **cli_args)
 	table->compiles_required = atoi(cli_args[5]);
 	table->cooldown = atoi(cli_args[6]);
 	table->stop = 0;
+	table->ready = 0;
 	pthread_mutex_init(&table->log_lock, NULL);
 	pthread_mutex_init(&table->state_lock, NULL);
 	if (!strcmp(cli_args[7], "fifo"))

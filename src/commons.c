@@ -6,15 +6,11 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:52:14 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/28 08:30:42 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/30 23:54:31 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-#include <bits/types/struct_timeval.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/time.h>
 
 int	_display_error(enum e_ERROR err_status, void *extra_msg)
 {
@@ -44,6 +40,7 @@ int	_display_error(enum e_ERROR err_status, void *extra_msg)
 	}
 	return (1);
 }
+
 
 double	get_power(int base, int exp)
 {
@@ -80,3 +77,19 @@ long long	now_ms(void)
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
+void ms_sleep(long long ms, t_table *table)
+{
+	long long target;
+
+	target = now_ms() + ms;
+
+	while (now_ms() < target && !is_stoped(table))
+		usleep(500);
+}
+// long long now_us(void)
+// {
+// 	struct timeval tv;
+
+// 	gettimeofday(&tv, NULL);
+// 	return (tv.tv_sec * 100)
+// }

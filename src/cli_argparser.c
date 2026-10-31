@@ -6,11 +6,12 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/25 23:57:35 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/28 08:28:47 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/30 16:03:10 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <stdlib.h>
 
 int	valid_passed_argument(char **argv, int argSize)
 {
@@ -34,6 +35,8 @@ int	valid_passed_argument(char **argv, int argSize)
 				return (3);
 		}
 	}
+	if (atoi(argv[0]) == 0)
+		return (1);
 	return (0);
 }
 

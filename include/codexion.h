@@ -6,20 +6,19 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:58:33 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/29 18:34:28 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/31 00:56:53 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODEXION_H
 # define CODEXION_H
 
-# include <getopt.h>
-# include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
-# include <pthread.h>
+# include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
+# include <pthread.h>
 # include <sys/time.h>
 
 enum e_ERROR
@@ -44,6 +43,7 @@ typedef struct s_heap
 
 typedef struct s_dongle
 {
+	int				id;
 	pthread_mutex_t	lock;
 	pthread_cond_t	cond;
 	int				busy;
@@ -75,6 +75,7 @@ typedef struct s_table
 	int				use_edf;
 	long long		start_time;
 	int				stop;
+	int				ready;
 	pthread_mutex_t	state_lock;
 	pthread_mutex_t	log_lock;
 	t_dongle		*dongles;
@@ -90,12 +91,22 @@ int			init_coders(t_table *table);
 int			init_dongles(t_table *table);
 int			init_table(t_table *table, char **cli_args);
 
+void		wait_for_start(void *arg);
+
 void		run_simulation(t_table *table);
-void		*coder_routine(t_coder*coder);
-void		*monitor_routine(t_table *table);
+void		stop_simulation(t_table *table);
+
+void		*coder_routine(void *arg);
+void		*monitor_routine(void *arg);
+
+int			is_stoped(t_table *table);
 
 double		get_power(int base, int exp);
+
 double		us_to_ms(double us);
 long long	now_ms(void);
+void		ms_sleep(long long ms, t_table *table);
+
+void		protected_log(pthread_mutex_t *mutex, long long ms_time, int id, char *msg);
 
 #endif
