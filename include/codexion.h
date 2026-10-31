@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:58:33 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/31 00:56:53 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/31 14:27:19 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 # include <unistd.h>
 # include <stdbool.h>
-# include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <stdlib.h>
 
 enum e_ERROR
 {

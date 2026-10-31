@@ -6,13 +6,11 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 03:33:31 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/31 00:55:51 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/31 14:48:06 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-#include <pthread.h>
-#include <time.h>
 
 int	init_coders(t_table *table)
 {
@@ -54,8 +52,6 @@ int	init_dongles(t_table *table)
 	}
 	return (0);
 }
-
-
 
 int	init_table(t_table *table, char **cli_args)
 {

@@ -6,13 +6,11 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/30 22:31:05 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/31 01:16:42 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/31 14:56:52 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-#include <pthread.h>
-
 
 int	is_stoped(t_table *table)
 {
@@ -32,17 +30,21 @@ void	*monitor_routine(void *arg)
 
 	table = (void *)arg;
 	wait_for_start(table);
+	printf("the monitor start working\n");
 	while (!is_stoped(table)) {
 		coder_idx = -1;
 		all_reach_required_compilation = 1;
 		while (++coder_idx < table->n)
 		{
 			pthread_mutex_lock(&table->coders[coder_idx].lock);
+			printf("coder %d: %lld, %lld, %lld, %lld\n", coder_idx, now_ms(), table->coders[coder_idx].last_compile_start, now_ms() - table->coders[coder_idx].last_compile_start, table->t_burnout);
 			if (now_ms() - table->coders[coder_idx].last_compile_start >= table->t_burnout)
 			{
-				stop_simulation(table); 
-				ms_sleep(10, table);
+				printf("tr to burnout\n");
+				stop_simulation(table);
+				printf("tr to burnout\n");
 				printf("%lld %d burnburned out\n", now_ms() - table->start_time, coder_idx);
+				ms_sleep(10, table);
 				pthread_mutex_unlock(&table->coders[coder_idx].lock);
 				break;
 			}

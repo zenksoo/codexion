@@ -6,12 +6,11 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:51:59 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/28 22:46:08 by amissa           ###   ########.fr       */
+/*   Updated: 2026/10/31 14:48:17 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-#include <pthread.h>
 
 void	display_data(t_table data)
 {

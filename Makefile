@@ -65,4 +65,4 @@ re: fclean all
 
 
 run: $(NAME)
-	@./$(NAME) 4 400 200 200 200 2 200 fifo
+	@./$(NAME) 4 1000 200 200 200 4 200 fifo
