@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:58:33 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/31 14:27:19 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/01 21:44:43 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdlib.h>
+
+# define FIFO 1
+# define EDF 2
 
 enum e_ERROR
 {
@@ -38,7 +41,6 @@ typedef struct s_heap
 {
 	t_heap_node	*nodes;
 	int			size;
-	int			cap;
 }	t_heap;
 
 typedef struct s_dongle
@@ -48,7 +50,7 @@ typedef struct s_dongle
 	pthread_cond_t	cond;
 	int				busy;
 	long long		available_at;
-	t_heap			queue;
+	t_heap			*queue;
 }	t_dongle;
 
 typedef struct s_coder
@@ -72,10 +74,11 @@ typedef struct s_table
 	long long		t_refactor;
 	long long		cooldown;
 	int				compiles_required;
-	int				use_edf;
+	int				scheduler;
 	long long		start_time;
 	int				stop;
 	int				ready;
+	int				ready_coder_id;
 	pthread_mutex_t	state_lock;
 	pthread_mutex_t	log_lock;
 	t_dongle		*dongles;
@@ -86,6 +89,12 @@ typedef struct s_table
 int			cli_argument_parser(int argc, char **argv);
 int			valid_passed_argument(char **argv, int argSize);
 int			_display_error(enum e_ERROR err_status, void *extra_msg);
+
+t_heap		*init_queue(int scheduler);
+void		heap_push(t_heap *heap, t_coder *new_coder);
+int			heap_peek(t_heap *heap, int scheduler);
+void		heap_remove(t_heap *heap);
+
 
 int			init_coders(t_table *table);
 int			init_dongles(t_table *table);
@@ -105,8 +114,8 @@ double		get_power(int base, int exp);
 
 double		us_to_ms(double us);
 long long	now_ms(void);
-void		ms_sleep(long long ms, t_table *table);
+int			ms_sleep(long long ms, t_table *table);
 
-void		protected_log(pthread_mutex_t *mutex, long long ms_time, int id, char *msg);
+void		protected_log(t_table *table, int id, char *msg);
 
 #endif

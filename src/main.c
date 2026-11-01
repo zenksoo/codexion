@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:51:59 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/31 14:48:17 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/01 06:26:26 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	display_data(t_table data)
 	printf("number of ocmpiles required: %d\n",
 		data.compiles_required);
 	printf("dongle cooldown: %lld\n", data.cooldown);
-	printf("using edf: %d\n", data.use_edf);
+	printf("using edf: %d\n", data.scheduler);
 }
 
 void	general_cleanup(t_table table)
@@ -32,6 +32,8 @@ void	general_cleanup(t_table table)
 	i = -1;
 	while (++i < table.n)
 	{
+		free(table.dongles[i].queue->nodes);
+		free(table.dongles[i].queue);
 		pthread_mutex_destroy(&table.coders[i].lock);
 		pthread_mutex_destroy(&table.dongles[i].lock);
 	}
@@ -49,9 +51,8 @@ int	main(int argc, char *argv[])
 	if (cli_argument_parser(argc, argv))
 		return (1);
 	if (init_table(&table, argv + 1))
-		return (1);
+		return (general_cleanup(table), 1);
 	run_simulation(&table);
 	general_cleanup(table);
-	display_data(table);
 	return (0);
 }

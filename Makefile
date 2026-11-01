@@ -16,7 +16,8 @@ FILES       = main.c\
 			  simulation.c\
 			  init.c\
 			  coder.c\
-			  monitor.c
+			  monitor.c\
+			  queue.c
 
 
 BUILD_DIR   = build/

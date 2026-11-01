@@ -6,11 +6,13 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:52:14 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/30 23:54:31 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/01 08:23:25 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <bits/time.h>
+#include <time.h>
 
 int	_display_error(enum e_ERROR err_status, void *extra_msg)
 {
@@ -72,12 +74,13 @@ double	us_to_ms(double us)
 
 long long	now_ms(void)
 {
-	struct timeval	tv;
+	struct timespec tp;
 
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &tp);
+
+	return (tp.tv_sec * 1000 + tp.tv_nsec / 1000000);
 }
-void ms_sleep(long long ms, t_table *table)
+int	ms_sleep(long long ms, t_table *table)
 {
 	long long target;
 
@@ -85,6 +88,10 @@ void ms_sleep(long long ms, t_table *table)
 
 	while (now_ms() < target && !is_stoped(table))
 		usleep(500);
+
+	if (is_stoped(table))
+		return 1;
+	return 0;
 }
 // long long now_us(void)
 // {

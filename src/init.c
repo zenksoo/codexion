@@ -6,17 +6,19 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 03:33:31 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/31 14:48:06 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/01 07:33:07 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <stdlib.h>
 
 int	init_coders(t_table *table)
 {
 	int	i;
 
 	table->coders = malloc(sizeof(t_coder) * table->n);
+
 	if (!table->coders)
 		return (1);
 	i = -1;
@@ -24,10 +26,12 @@ int	init_coders(t_table *table)
 	{
 		table->coders[i].id = i + 1;
 		table->coders[i].table = table;
-		// init its mutex
 		table->coders[i].compile_count = 0;
 		table->coders[i].left = &table->dongles[i];
-		table->coders[i].right = &table->dongles[(i + 1) % table->n];
+		if (table->n == 1)
+			table->coders[i].right = NULL;
+		else
+			table->coders[i].right = &table->dongles[(i + 1) % table->n];
 		pthread_mutex_init(&table->coders[i].lock, NULL);
 	}
 	return (0);
@@ -37,16 +41,18 @@ int	init_dongles(t_table *table)
 {
 	int	i;
 
-	table->dongles = malloc(sizeof(t_coder) * table->n);
+	table->dongles = malloc(sizeof(t_dongle) * table->n);
+
 	if (!table->dongles)
 		return (1);
 	i = -1;
 	while (++i < table->n)
 	{
-		// init its mutex and cond and init its heap (capacity 2).
 		table->dongles[i].id = i;
 		table->dongles[i].busy = 0;
 		table->dongles[i].available_at = 0;
+		table->dongles[i].queue = init_queue(table->scheduler);
+		table->dongles[i].queue->nodes = malloc(0);
 		pthread_mutex_init(&table->dongles[i].lock, NULL);
 		pthread_cond_init(&table->dongles[i].cond, NULL);
 	}
@@ -67,9 +73,9 @@ int	init_table(t_table *table, char **cli_args)
 	pthread_mutex_init(&table->log_lock, NULL);
 	pthread_mutex_init(&table->state_lock, NULL);
 	if (!strcmp(cli_args[7], "fifo"))
-		table->use_edf = 0;
+		table->scheduler = FIFO;
 	else if (!strcmp(cli_args[7], "edf"))
-		table->use_edf = 1;
+		table->scheduler = EDF;
 	if (init_dongles(table))
 		return (1);
 	if (init_coders(table))
