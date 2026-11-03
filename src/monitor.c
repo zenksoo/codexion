@@ -6,13 +6,14 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/30 22:31:05 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 20:24:34 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/03 23:02:17 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <pthread.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int	is_stoped(t_table *table)
 {
@@ -32,7 +33,8 @@ int	check_coder(t_table *table, int idx, int *done)
 	int			count;
 
 	pthread_mutex_lock(&table->coders[idx]->lock);
-	last = timespec_to_ms(*table->coders[idx]->last_compile_start);
+	// last = timespec_to_ms(*table->coders[idx]->last_compile_start);
+	last = table->coders[idx]->last_compile_start;
 	count = table->coders[idx]->compile_count;
 	pthread_mutex_unlock(&table->coders[idx]->lock);
 	if (now_ms() - last >= table->args[T_BURNOUT])
@@ -59,11 +61,8 @@ void	*monitor_routine(void *arg)
 			if (check_coder(table, coder_idx, &done))
 			{
 				stop_simulation(table);
-				if (pthread_mutex_lock(&table->log_lock))
-					return (NULL);
-				printf("%lld %d burned out\n", now_ms() - timespec_to_ms(*table->start_time), coder_idx + 1);
-				if (pthread_mutex_unlock(&table->log_lock))
-					return (NULL);
+				if (radio_log(table->coders[coder_idx], "burned out"))
+					return NULL;
 				return (NULL);
 			}
 		}

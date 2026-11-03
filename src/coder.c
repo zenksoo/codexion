@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/30 18:24:05 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 20:29:00 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/03 23:08:10 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	wait_dongle(t_dongle *d)
 	struct timespec	ts;
 	long long		wake;
 
-	wake = now_ms() + 5;
+	wake = now_ms() + 10;
 	if (!d->busy)
 		wake = d->available_at;
 	ts.tv_sec = wake / 1000;
@@ -37,8 +37,7 @@ int	compile(t_coder *coder)
 	if (take_dongles(coder))
 		return (1);
 	pthread_mutex_lock(&coder->lock);
-	if (clock_gettime(CLOCK_MONOTONIC, coder->last_compile_start))
-		return (1);
+	coder->last_compile_start = now_ms();
 	pthread_mutex_unlock(&coder->lock);
 	if (radio_log(coder, "is compiling")
 		|| simulation_sleep(table, coder->table->args[T_COMPILE]))
@@ -58,8 +57,10 @@ void	*coder_routine(void *arg)
 	coder = arg;
 	table = coder->table;
 	wait_for_start((void *)coder->table);
-	while (coder->id != coder->table->ready_coder_id)
+	while (coder->id != coder->table->ready_coder_id && !is_stoped(table))
 		;
+	if (is_stoped(table))
+		return (NULL);
 	pthread_mutex_lock(&coder->table->state_lock);
 	coder->table->ready_coder_id++;
 	pthread_mutex_unlock(&coder->table->state_lock);

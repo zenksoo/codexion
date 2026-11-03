@@ -6,11 +6,13 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 04:45:49 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 20:25:12 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/03 23:03:02 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <pthread.h>
+#include <stdio.h>
 
 int	radio_log(t_coder *coder, char *msg)
 {
@@ -19,7 +21,9 @@ int	radio_log(t_coder *coder, char *msg)
 	table = coder->table;
 	if (pthread_mutex_lock(&table->log_lock))
 		return (1);
-	printf("%lld %d %s\n", now_ms() - timespec_to_ms(*table->start_time), coder->id, msg);
+	// printf("%lld %d %s\n", now_ms() - timespec_to_ms(*table->start_time), coder->id, msg);
+	printf("%lld %d %s\n", now_ms() - table->st, coder->id, msg);
+	fflush(stdout);
 	if (pthread_mutex_unlock(&table->log_lock))
 		return (1);
 	return (0);
@@ -63,7 +67,7 @@ void	stop_simulation(t_table *table)
 	table->stop = 1;
 	pthread_mutex_unlock(&table->state_lock);
 	i = -1;
-	while (++i < table->n)
+	while (++i < table->n && !is_stoped(table))
 	{
 		pthread_mutex_lock(&table->dongles[i]->lock);
 		pthread_cond_broadcast(&table->dongles[i]->cond);
@@ -81,9 +85,10 @@ int	create_coders_routine(t_table *table)
 	{
 		if (pthread_mutex_lock(&table->coders[i]->lock))
 			return (1);
-		table->coders[i]->last_compile_start = malloc(sizeof(struct timespec));
-		if (clock_gettime(CLOCK_MONOTONIC, table->coders[i]->last_compile_start))
-			return (pthread_mutex_unlock(&table->coders[i]->lock), 1);
+		// table->coders[i]->last_compile_start = malloc(sizeof(struct timespec));
+		table->coders[i]->last_compile_start = now_ms();
+		// if (clock_gettime(CLOCK_MONOTONIC, table->coders[i]->last_compile_start))
+		// 	return (pthread_mutex_unlock(&table->coders[i]->lock), 1);
 		if (pthread_mutex_unlock(&table->coders[i]->lock))
 			return (1);
 		if (pthread_create(&table->coders[i]->thread,
@@ -99,7 +104,8 @@ int	run_simulation(t_table *table)
 	int	i;
 
 	i = -1;
-	table->start_time = malloc(sizeof(struct timespec));
+	// table->start_time = malloc(sizeof(struct timespec));
+	table->st = now_ms();
 	if (pthread_create(&table->monitor, NULL,
 		(void *(*)(void *))monitor_routine, table))
 		return (1);
@@ -110,15 +116,15 @@ int	run_simulation(t_table *table)
 		return (1);
 	table->ready = 1;
 	table->ready_coder_id = 1;
-	if (clock_gettime(CLOCK_MONOTONIC, table->start_time))
-		return (pthread_mutex_unlock(&table->state_lock), 1);
+	// if (clock_gettime(CLOCK_MONOTONIC, table->start_time))
+	// 	return (pthread_mutex_unlock(&table->state_lock), 1);
 	if (pthread_mutex_unlock(&table->state_lock))
 		return (1);
 	i = -1;
+	if (pthread_join(table->monitor, NULL))
+		return (1);
 	while (++i < table->n)
 		if (pthread_join(table->coders[i]->thread, NULL))
 			return (1);
-	if (pthread_join(table->monitor, NULL))
-		return (1);
 	return 0;
 }

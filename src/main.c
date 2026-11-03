@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:51:59 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 20:21:58 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/03 22:13:04 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	general_cleanup(t_table table)
 	{
 		if(table.coders[i]->initialized_mutex)
 			pthread_mutex_destroy(&table.coders[i]->lock);
-		free(table.coders[i]->last_compile_start);
+		// free(table.coders[i]->last_compile_start);
 		free(table.coders[i]);
 		if (table.dongles[i]->initialized_mutex)
 			pthread_mutex_destroy(&table.dongles[i]->lock);
@@ -53,7 +53,7 @@ void	general_cleanup(t_table table)
 	free(table.args);
 	free(table.coders);
 	free(table.dongles);
-	free(table.start_time);
+	// free(table.start_time);
 }
 
 void display_heap(t_heap *heap)
@@ -75,6 +75,7 @@ int	main(int argc, char *argv[])
 		return (general_cleanup(table), 1);
 	if (run_simulation(&table))
 		return (general_cleanup(table), 1);
+	// display_data(table);
 	general_cleanup(table);
 	return (0);
 }
