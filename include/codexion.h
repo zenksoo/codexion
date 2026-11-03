@@ -6,14 +6,13 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:58:33 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 22:10:17 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/04 00:49:20 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODEXION_H
 # define CODEXION_H
 
-#include <time.h>
 # include <unistd.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -58,19 +57,19 @@ typedef struct s_heap
 
 typedef struct s_dongle
 {
-	long long		available_at;
-	pthread_mutex_t	lock;
-	pthread_cond_t	cond;
-	int				initialized_mutex;
-	int				id;
-	int				busy;
-	t_heap			*queue;
+	long long			available_at;
+	pthread_mutex_t		lock;
+	pthread_cond_t		cond;
+	pthread_condattr_t	attr;
+	int					initialized_mutex;
+	int					id;
+	int					busy;
+	t_heap				*queue;
 }	t_dongle;
 
 typedef struct s_coder
 {
-	// struct timespec	*last_compile_start;
-	long long int	last_compile_start;
+	long long	last_compile_start;
 	pthread_t		thread;
 	t_dongle		*right;
 	t_dongle		*left;
@@ -85,8 +84,7 @@ typedef struct s_table
 {
 	int				n;
 	long long		*args;
-	// struct timespec	*start_time;
-	long long		st;
+	long long		start_time;
 	int				stop;
 	int				ready;
 	int				ready_coder_id;

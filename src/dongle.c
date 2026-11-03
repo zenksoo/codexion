@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/03 19:56:16 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 23:09:39 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/03 23:12:45 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	init_dongles(t_table *table)
 {
 	int	i;
 
+
 	table->dongles = malloc(sizeof(t_dongle) * table->n);
 	if (!table->dongles)
 		return (1);
@@ -94,7 +95,10 @@ int	init_dongles(t_table *table)
 		if (pthread_mutex_init(&table->dongles[i]->lock, NULL))
 			return (1);
 		table->dongles[i]->initialized_mutex = 1;
-		if (pthread_cond_init(&table->dongles[i]->cond, NULL))
+
+		pthread_condattr_init(&table->dongles[i]->attr);
+		pthread_condattr_setclock(&table->dongles[i]->attr, CLOCK_MONOTONIC);
+		if (pthread_cond_init(&table->dongles[i]->cond, &table->dongles[i]->attr))
 			return (1);
 	}
 	return (0);
