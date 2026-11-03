@@ -4,7 +4,7 @@ RED_SEP     = @printf "\033[41m \033[49m  "
 
 CC          = cc
 CFLAGS      = -g -Wall -Wextra -Werror -pthread
-MEM_PROB	= -fsanitize=address -g3
+MEM_PROB	= -fsanitize=address -ggdb
 
 RM          = rm -rf
 
@@ -18,7 +18,8 @@ FILES       = main.c\
 			  coder.c\
 			  monitor.c\
 			  queue.c\
-			  queue_helper.c
+			  queue_helper.c\
+			  dongle.c
 
 
 BUILD_DIR   = build/
@@ -44,7 +45,7 @@ $(BUILD_DIR):
 
 $(BUILD_DIR)%.o: $(SRC_DIR)%.c
 	@printf "\033[32m"
-	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) $(MEM_PROB) -I$(INCLUDE_DIR) -c $< -o $@
 	@printf "\033[39m"
 
 

@@ -6,12 +6,23 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/25 23:57:35 by amissa            #+#    #+#             */
-/*   Updated: 2026/10/30 16:03:10 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/03 19:51:11 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <stdlib.h>
+
+int	is_valid_number(char *val)
+{
+	while (*val == '-' || *val == '+')
+		val++;
+	while (*val >= '0' && *val <= '9')
+		val++;
+	if (*val)
+		return (0);
+	return (1);
+}
 
 int	valid_passed_argument(char **argv, int argSize)
 {
@@ -27,12 +38,10 @@ int	valid_passed_argument(char **argv, int argSize)
 		}
 		else
 		{
+			if (!*argv[i] || !is_valid_number(argv[i]))
+				return (1);
 			if (atoi(argv[i]) < 0)
 				return (1);
-			while (*argv[i] == '-' || *argv[i] == '+')
-				argv[i]++;
-			if (*argv[i] < '0' || *argv[i] > '9')
-				return (3);
 		}
 	}
 	if (atoi(argv[0]) == 0)

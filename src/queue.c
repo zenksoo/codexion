@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/31 18:47:07 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 01:12:49 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/03 20:22:49 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	heap_push(t_heap *heap, t_coder *coder, int policy)
 	else
 	{
 		pthread_mutex_lock(&coder->lock);
-		key = coder->last_compile_start + coder->table->cli_args->t_burnout;
+		key = timespec_to_ms(*coder->last_compile_start) + coder->table->args[T_BURNOUT];
 		pthread_mutex_unlock(&coder->lock);
 	}
 	heap->nodes[heap->size].key = key;

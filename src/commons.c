@@ -6,19 +6,11 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:52:14 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 01:06:23 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/03 20:29:37 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-#include <bits/pthreadtypes.h>
-#include <bits/time.h>
-#include <bits/types/struct_timeval.h>
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/time.h>
-#include <time.h>
 
 int	_display_error(enum e_ERROR err_status, void *extra_msg)
 {
@@ -49,52 +41,27 @@ int	_display_error(enum e_ERROR err_status, void *extra_msg)
 	return (1);
 }
 
-
-double	get_power(int base, int exp)
-{
-	double	result;
-	int		sign;
-	int		i;
-
-	if (exp == 0)
-		return (1.0);
-	sign = 1;
-	if (exp < 0)
-	{
-		sign = -1;
-		exp = -exp;
-	}
-	result = 1.0;
-	i = -1;
-	while (++i < exp)
-		result *= base;
-	if (sign == 1)
-		return (result);
-	return (1.0 / result);
-}
-
-double	us_to_ms(double us)
-{
-	return (us * get_power(10, -3));
-}
-
 long long	now_ms(void)
 {
-	struct timeval tv;
+	struct timespec	tp;
 
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+	clock_gettime(CLOCK_MONOTONIC, &tp);
+	return (tp.tv_sec * 1000 + tp.tv_nsec / 1000000);
 }
+
+long long	timespec_to_ms(struct timespec ts)
+{
+	return (ts.tv_sec * 1000 + ts.tv_nsec / 1000000);
+}
+
 int	ms_sleep(long long ms, t_table *table)
 {
-	long long target;
+	long long	target;
 
 	target = now_ms() + ms;
-
 	while (now_ms() < target && !is_stoped(table))
 		usleep(500);
-
 	if (is_stoped(table))
-		return 1;
-	return 0;
+		return (1);
+	return (0);
 }

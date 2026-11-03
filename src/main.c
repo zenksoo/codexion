@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:51:59 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 01:47:38 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/03 20:21:58 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 void	display_data(t_table data)
 {
 	printf("number of coders: %d\n", data.n);
-	printf("time to burnout: %lld\n", data.cli_args->t_burnout);
-	printf("time to compile: %lld\n", data.cli_args->t_compile);
-	printf("time to debug: %lld\n", data.cli_args->t_debug);
-	printf("time to refactor: %lld\n", data.cli_args->t_refactor);
-	printf("number of ocmpiles required: %d\n",
-		data.cli_args->compiles_required);
-	printf("dongle cooldown: %lld\n", data.cli_args->cooldown);
-	printf("using edf: %d\n", data.cli_args->scheduler);
+	printf("time to burnout: %lld\n", data.args[T_BURNOUT]);
+	printf("time to compile: %lld\n", data.args[T_COMPILE]);
+	printf("time to debug: %lld\n", data.args[T_DEBUG]);
+	printf("time to refactor: %lld\n", data.args[T_REFACTOR]);
+	printf("number of ocmpiles required: %lld\n",
+		data.args[C_REQUIRED]);
+	printf("dongle cooldown: %lld\n", data.args[COOLDOWN]);
+	printf("using edf: %lld\n", data.args[POLICY]);
 }
 
 void	general_cleanup(t_table table)
@@ -36,18 +36,24 @@ void	general_cleanup(t_table table)
 	i = -1;
 	while (++i < table.n)
 	{
-		pthread_mutex_destroy(&table.coders[i]->lock);
-		pthread_mutex_destroy(&table.dongles[i]->lock);
+		if(table.coders[i]->initialized_mutex)
+			pthread_mutex_destroy(&table.coders[i]->lock);
+		free(table.coders[i]->last_compile_start);
+		free(table.coders[i]);
+		if (table.dongles[i]->initialized_mutex)
+			pthread_mutex_destroy(&table.dongles[i]->lock);
 		free(table.dongles[i]->queue->nodes);
 		free(table.dongles[i]->queue);
 		free(table.dongles[i]);
-		free(table.coders[i]);
 	}
-	pthread_mutex_destroy(&table.log_lock);
-	pthread_mutex_destroy(&table.state_lock);
-	free(table.cli_args);
+	if (table.initialized_mutex[0])
+		pthread_mutex_destroy(&table.log_lock);
+	if (table.initialized_mutex[1])
+		pthread_mutex_destroy(&table.state_lock);
+	free(table.args);
 	free(table.coders);
 	free(table.dongles);
+	free(table.start_time);
 }
 
 void display_heap(t_heap *heap)
@@ -65,10 +71,10 @@ int	main(int argc, char *argv[])
 
 	if (cli_argument_parser(argc, argv))
 		return (1);
-	if (init_table(&table, argv + 1))
+	if (pick_cli_arguments(&table, argv + 1) || init_table(&table))
 		return (general_cleanup(table), 1);
-
-	run_simulation(&table);
+	if (run_simulation(&table))
+		return (general_cleanup(table), 1);
 	general_cleanup(table);
 	return (0);
 }
