@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:58:33 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/01 21:44:43 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/03 01:13:10 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct s_heap
 {
 	t_heap_node	*nodes;
 	int			size;
+	int			cap;
+	int			priority;
 }	t_heap;
 
 typedef struct s_dongle
@@ -65,9 +67,8 @@ typedef struct s_coder
 	struct s_table	*table;
 }	t_coder;
 
-typedef struct s_table
+typedef struct s_cliargs
 {
-	int				n;
 	long long		t_burnout;
 	long long		t_compile;
 	long long		t_debug;
@@ -75,14 +76,21 @@ typedef struct s_table
 	long long		cooldown;
 	int				compiles_required;
 	int				scheduler;
+
+}	t_cliargs;
+
+typedef struct s_table
+{
+	int				n;
+	t_cliargs		*cli_args;
 	long long		start_time;
 	int				stop;
 	int				ready;
 	int				ready_coder_id;
 	pthread_mutex_t	state_lock;
 	pthread_mutex_t	log_lock;
-	t_dongle		*dongles;
-	t_coder			*coders;
+	t_dongle		**dongles;
+	t_coder			**coders;
 	pthread_t		monitor;
 }	t_table;
 
@@ -90,11 +98,20 @@ int			cli_argument_parser(int argc, char **argv);
 int			valid_passed_argument(char **argv, int argSize);
 int			_display_error(enum e_ERROR err_status, void *extra_msg);
 
-t_heap		*init_queue(int scheduler);
-void		heap_push(t_heap *heap, t_coder *new_coder);
-int			heap_peek(t_heap *heap, int scheduler);
-void		heap_remove(t_heap *heap);
 
+void	swap_nodes(t_heap_node *a, t_heap_node *b);
+int	is_better(t_heap_node a, t_heap_node b);
+
+
+t_heap		*init_queue(int capacity, int scheduler);
+t_heap_node	heap_pop(t_heap *heap);
+int			heap_push(t_heap *heap, t_coder *coder, int policy);
+int			heap_peek(t_heap *heap, int target);
+void		destroy_queue(t_heap *heap);
+
+void		shift_up(t_heap *heap, int i);
+void		shift_down(t_heap *heap, int i);
+void		heap_remove(t_heap *heap, int id);
 
 int			init_coders(t_table *table);
 int			init_dongles(t_table *table);

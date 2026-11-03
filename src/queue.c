@@ -6,70 +6,89 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/31 18:47:07 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/01 22:33:12 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/03 01:12:49 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <limits.h>
+#include <pthread.h>
+#include <stdlib.h>
 
-
-void heap_push(t_heap *heap, t_coder *new_coder)
+int	is_better(t_heap_node a, t_heap_node b)
 {
-	t_heap_node *tmp;
-
-	if (heap->size == 2 || !heap || !new_coder)
-		return ;
-
-	tmp = realloc(heap->nodes, (sizeof(t_heap_node) * (heap->size + 1)));
-
-	heap->nodes = tmp;
-
-	heap->nodes[heap->size].coder_id = new_coder->id;
-	if (new_coder->table->scheduler == FIFO)
-		heap->nodes[heap->size].key = now_ms();
-	else
-		heap->nodes[heap->size].key = new_coder->last_compile_start + new_coder->table->t_burnout;
-	heap->size++;
+	if (a.key != b.key)
+		return (a.key < b.key);
+	return (a.coder_id < b.coder_id);
 }
 
-
-int	heap_peek(t_heap *heap, int scheduler)
+void	swap_nodes(t_heap_node *a, t_heap_node *b)
 {
-	t_heap_node	node;
-	int			peeked_idx;
-	int			i;
+	t_heap_node	tmp;
 
-	if (!heap->size)
-		return -1;
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
 
-	peeked_idx = 0;
-	if (scheduler == EDF)
-	{
-		i = 0;
-		while (++i < heap->size)
-			if (heap->nodes[i].key < node.key)
-				peeked_idx = i;
-	}
-	node = heap->nodes[peeked_idx];
-	i = -1;
-	while (++i < heap->size - 1)
-	{
-		if (i >= peeked_idx)
-			heap->nodes[i] = heap->nodes[i + 1];
-	}
+int	heap_peek(t_heap *heap, int target)
+{
+	if (heap->size == 0)
+		return (0);
+	return (heap->nodes[0].coder_id == target);
+}
+
+t_heap_node	heap_pop(t_heap *heap)
+{
+	t_heap_node	top;
+
+	top.key = 0;
+	top.coder_id = -1;
+	if (heap->size == 0)
+		return (top);
+	top = heap->nodes[0];
 	heap->size--;
-	heap->nodes = realloc(heap->nodes, (sizeof(t_heap_node) * heap->size));
-	return node.coder_id;
+	heap->nodes[0] = heap->nodes[heap->size];
+	shift_down(heap, 0);
+	return (top);
 }
 
-t_heap *init_queue(int scheduler)
+int	heap_push(t_heap *heap, t_coder *coder, int policy)
 {
-	t_heap *heap;
+	long long	key;
 
+	if (heap->size == heap->cap)
+		return (1);
+	if (policy == FIFO)
+		key = heap->priority++;
+	else
+	{
+		pthread_mutex_lock(&coder->lock);
+		key = coder->last_compile_start + coder->table->cli_args->t_burnout;
+		pthread_mutex_unlock(&coder->lock);
+	}
+	heap->nodes[heap->size].key = key;
+	heap->nodes[heap->size].coder_id = coder->id;
+	heap->size++;
+	shift_up(heap, heap->size - 1);
+	return (0);
+}
+
+
+t_heap	*init_queue(int capacity, int scheduler)
+{
+	t_heap	*heap;
 
 	if (scheduler != FIFO && scheduler != EDF)
-		return NULL;
-	heap = malloc((sizeof(*heap)));
+		return (NULL);
+	heap = malloc(sizeof(t_heap));
+	if (!heap)
+		return (NULL);
+	heap->nodes = malloc(sizeof(t_heap_node) * capacity);
+	if (!heap->nodes)
+		return (free(heap), NULL);
 	heap->size = 0;
+	heap->cap = capacity;
+	heap->priority = 0;
 	return (heap);
 }

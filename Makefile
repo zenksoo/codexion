@@ -4,7 +4,7 @@ RED_SEP     = @printf "\033[41m \033[49m  "
 
 CC          = cc
 CFLAGS      = -g -Wall -Wextra -Werror -pthread
-MEM_PROB	= --fsanitize=address -gdb
+MEM_PROB	= -fsanitize=address -g3
 
 RM          = rm -rf
 
@@ -17,7 +17,8 @@ FILES       = main.c\
 			  init.c\
 			  coder.c\
 			  monitor.c\
-			  queue.c
+			  queue.c\
+			  queue_helper.c
 
 
 BUILD_DIR   = build/
@@ -32,7 +33,7 @@ OBJ = $(addprefix $(BUILD_DIR), $(FILES:.c=.o))
 
 $(NAME): $(BUILD_DIR) $(OBJ)
 	@printf "\033[33m"
-	$(CC) $(CFLAGS) -fsanitize=address -g3 $(OBJ) -o $@
+	$(CC) $(CFLAGS) $(MEM_PROB) $(OBJ) -o $@
 	@printf "\033[39m"
 
 
@@ -66,4 +67,4 @@ re: fclean all
 
 
 run: $(NAME)
-	@./$(NAME) 4 1000 200 200 200 4 200 fifo
+	./$(NAME) 4 600 200 200 200 4 20 fifo

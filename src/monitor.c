@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/30 22:31:05 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/01 06:40:00 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/03 00:43:34 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ int check_coder(t_table *table, int idx, int *done)
 	long long	last;
 	int			count;
 
-	pthread_mutex_lock(&table->coders[idx].lock);
-	last = table->coders[idx].last_compile_start;
-	count = table->coders[idx].compile_count;
-	pthread_mutex_unlock(&table->coders[idx].lock);
+	pthread_mutex_lock(&table->coders[idx]->lock);
+	last = table->coders[idx]->last_compile_start;
+	count = table->coders[idx]->compile_count;
+	pthread_mutex_unlock(&table->coders[idx]->lock);
 
-	if (now_ms() - last >= table->t_burnout)
+	if (now_ms() - last >= table->cli_args->t_burnout)
 		return 1;
 
-	if (count < table->compiles_required)
+	if (count < table->cli_args->compiles_required)
 		*done = 0;
 	return 0;
 }
