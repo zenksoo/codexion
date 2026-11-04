@@ -6,12 +6,27 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 22:53:50 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 20:23:00 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/04 14:47:05 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
+int	is_better(t_heap_node a, t_heap_node b)
+{
+	if (a.key != b.key)
+		return (a.key < b.key);
+	return (a.coder_id < b.coder_id);
+}
+
+void	swap_nodes(t_heap_node *a, t_heap_node *b)
+{
+	t_heap_node	tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
 
 void	shift_up(t_heap *heap, int i)
 {

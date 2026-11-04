@@ -6,12 +6,20 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/25 23:57:35 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/04 13:26:10 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/04 15:06:18 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <stdio.h>
 #include <stdlib.h>
+
+int	display_error(void)
+{
+	fprintf(stderr, "ERROR!\n");
+	fflush(stderr);
+	return (1);
+}
 
 int	is_valid_number(char *val)
 {
@@ -33,7 +41,7 @@ int	valid_passed_argument(char **argv, int argSize)
 	{
 		if (i == argSize - 1)
 		{
-			if (strcmp(argv[7], "fifo") && strcmp(argv[7], "edf"))
+			if (strcmp(argv[i], "fifo") && strcmp(argv[i], "edf"))
 				return (2);
 		}
 		else
@@ -51,27 +59,14 @@ int	valid_passed_argument(char **argv, int argSize)
 
 int	cli_argument_parser(int argc, char **argv)
 {
-	int	validation_status;
-
 	if (argc == 9)
 	{
-		validation_status = valid_passed_argument(argv + 1, argc - 1);
-		if (validation_status == 1)
-			return (_display_error(
-					INVALID_ARGUMENT,
-					"Invalid Argument!"));
-		else if (validation_status == 2)
-			return (_display_error(
-					INVALID_ARGUMENT,
-					"the last argument must be 'fifo' or 'edf'"));
-		else if (validation_status == 3)
-			return (_display_error(
-					INVALID_ARGUMENT,
-					"Invalid integer in the first 7 arguments"));
+		if (valid_passed_argument(argv + 1, argc - 1))
+			return (display_error());
 	}
 	else if (argc > 9)
-		return (_display_error(EXTRA_ARGUMENT, NULL));
+		return (display_error());
 	else
-		return (_display_error(MISSING_ARGUMENT, NULL));
+		return (display_error());
 	return (0);
 }

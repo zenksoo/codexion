@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 12:00:21 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/04 12:38:04 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/04 22:13:33 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	destroy_coders(t_table *table)
 	int	i;
 
 	i = -1;
-	while (++i < table->n && table->coders[i])
+	while (++i < table->n && table->coders && table->coders[i])
 	{
 		if (table->coders[i]->initialized_mutex)
 			pthread_mutex_destroy(&table->coders[i]->lock);
@@ -56,15 +56,14 @@ int	destroy_dongles(t_table *table)
 	return (0);
 }
 
-void	general_cleanup(t_table table)
+void	general_cleanup(t_table *table)
 {
-	destroy_coders(&table);
-	destroy_dongles(&table);
-	if (table.initialized_mutex[0])
-		pthread_mutex_destroy(&table.log_lock);
-	if (table.initialized_mutex[1])
-		pthread_mutex_destroy(&table.state_lock);
-	if (table.args)
-		free(table.args);
+	if (table->destroy_mutex[0])
+		pthread_mutex_destroy(&table->log_lock);
+	if (table->destroy_mutex[1])
+		pthread_mutex_destroy(&table->state_lock);
+	if (table->args)
+		free(table->args);
+	destroy_coders(table);
+	destroy_dongles(table);
 }
-

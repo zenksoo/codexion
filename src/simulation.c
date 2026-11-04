@@ -6,29 +6,12 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 04:45:49 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/04 11:36:53 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/05 00:41:21 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include <pthread.h>
-#include <stdio.h>
-
-int	radio_log(t_coder *coder, char *msg)
-{
-	t_table	*table;
-
-	table = coder->table;
-	if (pthread_mutex_lock(&table->log_lock))
-		return (1);
-	if (is_stoped(table))
-		return (pthread_mutex_unlock(&table->log_lock), 1);
-	printf("%lld %d %s\n", now_ms() - table->start_time, coder->id, msg);
-	fflush(stdout);
-	if (pthread_mutex_unlock(&table->log_lock))
-		return (1);
-	return (0);
-}
 
 int	simulation_sleep(t_table *table, long long ms)
 {
@@ -60,18 +43,15 @@ int	wait_for_start(void *arg)
 	return (0);
 }
 
-void	stop_simulation(t_table *table)
+void	wake_coders(t_table *table)
 {
 	int	i;
 
-	pthread_mutex_lock(&table->state_lock);
-	table->stop = 1;
-	pthread_mutex_unlock(&table->state_lock);
 	i = -1;
 	while (++i < table->n)
 	{
 		pthread_mutex_lock(&table->dongles[i]->lock);
-		pthread_cond_broadcast(&table->dongles[i]->cond);
+		pthread_cond_signal(&table->dongles[i]->cond);
 		pthread_mutex_unlock(&table->dongles[i]->lock);
 	}
 }
@@ -89,8 +69,7 @@ int	create_coders_routine(t_table *table)
 		if (pthread_mutex_unlock(&table->coders[i]->lock))
 			return (1);
 		if (pthread_create(&table->coders[i]->thread,
-			NULL, (void *(*)(void *))coder_routine,
-			table->coders[i]))
+				NULL, (void *(*)(void *))coder_routine, table->coders[i]))
 			return (1);
 	}
 	return (0);
@@ -103,14 +82,13 @@ int	run_simulation(t_table *table)
 	i = -1;
 	table->start_time = now_ms();
 	if (pthread_create(&table->monitor, NULL,
-		(void *(*)(void *))monitor_routine, table))
+			(void *(*)(void *))monitor_routine, table))
 		return (1);
 	if (create_coders_routine(table))
 		return (1);
 	if (pthread_mutex_lock(&table->state_lock))
 		return (1);
 	table->ready = 1;
-	table->ready_coder_id = 1;
 	if (pthread_mutex_unlock(&table->state_lock))
 		return (1);
 	i = -1;
@@ -119,5 +97,5 @@ int	run_simulation(t_table *table)
 	while (++i < table->n)
 		if (pthread_join(table->coders[i]->thread, NULL))
 			return (1);
-	return 0;
+	return (0);
 }

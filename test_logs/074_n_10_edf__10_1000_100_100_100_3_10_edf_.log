@@ -1,0 +1,168 @@
+=== TEST: n=10 edf [10 1000 100 100 100 3 10 edf] ===
+Date    : 2026-11-04 23:50:26
+Dir     : /home/amissa/core/coding/cursus/codexion
+
+--- RUN ---
+Command     : ./codexion 10 1000 100 100 100 3 10 edf 
+Timeout     : 40s
+Return code : 0
+--- stdout (first 5000 lines) ---
+0 10 has taken a dongle
+0 10 has taken a dongle
+0 1 has taken a dongle
+0 5 has taken a dongle
+0 5 has taken a dongle
+0 5 is compiling
+0 10 is compiling
+0 3 has taken a dongle
+0 3 has taken a dongle
+0 3 is compiling
+0 7 has taken a dongle
+0 7 has taken a dongle
+0 7 is compiling
+100 10 is debugging
+100 7 is debugging
+100 5 is debugging
+100 3 is debugging
+110 4 has taken a dongle
+110 4 has taken a dongle
+110 4 is compiling
+110 8 has taken a dongle
+110 8 has taken a dongle
+110 8 is compiling
+110 6 has taken a dongle
+110 6 has taken a dongle
+110 6 is compiling
+110 9 has taken a dongle
+110 1 has taken a dongle
+110 1 is compiling
+200 5 is refactoring
+200 3 is refactoring
+200 10 is refactoring
+200 7 is refactoring
+210 1 is debugging
+210 4 is debugging
+210 6 is debugging
+210 8 is debugging
+220 9 has taken a dongle
+220 9 is compiling
+220 2 has taken a dongle
+220 2 has taken a dongle
+220 2 is compiling
+300 3 has taken a dongle
+300 7 has taken a dongle
+300 7 has taken a dongle
+300 7 is compiling
+300 5 has taken a dongle
+300 5 has taken a dongle
+300 5 is compiling
+310 8 is refactoring
+310 1 is refactoring
+310 6 is refactoring
+310 4 is refactoring
+320 2 is debugging
+320 9 is debugging
+330 3 has taken a dongle
+330 3 is compiling
+330 10 has taken a dongle
+330 10 has taken a dongle
+330 10 is compiling
+400 5 is debugging
+400 7 is debugging
+410 8 has taken a dongle
+410 8 has taken a dongle
+410 8 is compiling
+410 6 has taken a dongle
+410 6 has taken a dongle
+410 6 is compiling
+410 1 has taken a dongle
+420 9 is refactoring
+420 2 is refactoring
+430 10 is debugging
+430 3 is debugging
+440 1 has taken a dongle
+440 1 is compiling
+440 4 has taken a dongle
+440 4 has taken a dongle
+440 4 is compiling
+500 5 is refactoring
+500 7 is refactoring
+510 6 is debugging
+510 8 is debugging
+520 9 has taken a dongle
+520 9 has taken a dongle
+520 9 is compiling
+530 3 is refactoring
+530 10 is refactoring
+540 4 is debugging
+540 1 is debugging
+550 2 has taken a dongle
+550 2 has taken a dongle
+550 2 is compiling
+600 5 has taken a dongle
+600 5 has taken a dongle
+600 5 is compiling
+600 7 has taken a dongle
+600 7 has taken a dongle
+600 7 is compiling
+610 8 is refactoring
+610 6 is refactoring
+620 9 is debugging
+630 3 has taken a dongle
+630 10 has taken a dongle
+630 10 has taken a dongle
+630 10 is compiling
+640 4 is refactoring
+640 1 is refactoring
+650 2 is debugging
+660 3 has taken a dongle
+660 3 is compiling
+700 7 is debugging
+700 5 is debugging
+710 8 has taken a dongle
+710 8 has taken a dongle
+710 8 is compiling
+710 6 has taken a dongle
+710 6 has taken a dongle
+710 6 is compiling
+720 9 is refactoring
+730 10 is debugging
+740 1 has taken a dongle
+740 1 has taken a dongle
+740 1 is compiling
+750 2 is refactoring
+760 3 is debugging
+770 4 has taken a dongle
+770 4 has taken a dongle
+770 4 is compiling
+800 7 is refactoring
+800 5 is refactoring
+810 8 is debugging
+810 6 is debugging
+820 9 has taken a dongle
+820 9 has taken a dongle
+820 9 is compiling
+830 10 is refactoring
+840 1 is debugging
+850 2 has taken a dongle
+850 2 has taken a dongle
+850 2 is compiling
+860 3 is refactoring
+870 4 is debugging
+900 5 has taken a dongle
+900 5 has taken a dongle
+900 5 is compiling
+900 7 has taken a dongle
+900 7 has taken a dongle
+900 7 is compiling
+910 6 is refactoring
+910 8 is refactoring
+920 9 is debugging
+930 10 has taken a dongle
+930 10 has taken a dongle
+930 10 is compiling
+940 1 is refactoring
+950 2 is debugging
+--- stderr (first 200 lines) ---
+
+=== VERDICT: OK ===

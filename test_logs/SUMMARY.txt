@@ -1,0 +1,135 @@
+
+== Makefile & build ==
+[OK  ] Makefile present
+[OK  ] Makefile contains -Wall
+[OK  ] Makefile contains -Wextra
+[OK  ] Makefile contains -Werror
+[OK  ] Makefile contains -pthread
+[OK  ] rule 'all' exists
+[OK  ] rule 'clean' exists
+[OK  ] rule 'fclean' exists
+[OK  ] rule 're' exists
+[OK  ] rule 'codexion' exists
+[OK  ] make builds ./codexion
+[OK  ] no compilation warning
+[OK  ] no needless relink
+[OK  ] make clean keeps the binary
+[OK  ] make fclean removes the binary
+[OK  ] make re rebuilds the binary
+
+== Static analysis & README ==
+[OK  ] norminette
+[WARN] only allowed external functions
+[OK  ] priority queue (heap) found in sources
+[OK  ] README.md present
+[OK  ] README: first line in italics
+[FAIL] README: section 'Description'
+[FAIL] README: section 'Instructions'
+[FAIL] README: section 'Resources'
+[FAIL] README: section 'Blocking cases handled'
+[FAIL] README: section 'Thread synchronization mechanisms'
+
+== Invalid arguments: argument count ==
+[OK  ] invalid: no arguments  ->  001_invalid__no_arguments.log
+[OK  ] invalid: single argument  ->  002_invalid__single_argument.log
+[OK  ] invalid: 5 arguments out of 8  ->  003_invalid__5_arguments_out_of_8.log
+[OK  ] invalid: 7 arguments (scheduler missing)  ->  004_invalid__7_arguments__scheduler_missing_.log
+[OK  ] invalid: 9 arguments (one too many)  ->  005_invalid__9_arguments__one_too_many_.log
+[OK  ] invalid: wrong order (scheduler first)  ->  006_invalid__wrong_order__scheduler_first_.log
+
+== Invalid arguments: numeric format ==
+[OK  ] invalid: number_of_coders = -1  ->  007_invalid__number_of_coders___-1.log
+[OK  ] invalid: time_to_burnout = -1  ->  008_invalid__time_to_burnout___-1.log
+[OK  ] invalid: time_to_compile = -1  ->  009_invalid__time_to_compile___-1.log
+[OK  ] invalid: time_to_debug = -1  ->  010_invalid__time_to_debug___-1.log
+[OK  ] invalid: time_to_refactor = -1  ->  011_invalid__time_to_refactor___-1.log
+[OK  ] invalid: number_of_compiles_required = -1  ->  012_invalid__number_of_compiles_required___-1.log
+[OK  ] invalid: dongle_cooldown = -1  ->  013_invalid__dongle_cooldown___-1.log
+[OK  ] invalid: number_of_coders = abc  ->  014_invalid__number_of_coders___abc.log
+[OK  ] invalid: time_to_burnout = abc  ->  015_invalid__time_to_burnout___abc.log
+[OK  ] invalid: time_to_compile = abc  ->  016_invalid__time_to_compile___abc.log
+[OK  ] invalid: time_to_debug = abc  ->  017_invalid__time_to_debug___abc.log
+[OK  ] invalid: time_to_refactor = abc  ->  018_invalid__time_to_refactor___abc.log
+[OK  ] invalid: number_of_compiles_required = abc  ->  019_invalid__number_of_compiles_required___abc.log
+[OK  ] invalid: dongle_cooldown = abc  ->  020_invalid__dongle_cooldown___abc.log
+[OK  ] invalid: number_of_coders = 1.5  ->  021_invalid__number_of_coders___1.5.log
+[OK  ] invalid: time_to_burnout = 1.5  ->  022_invalid__time_to_burnout___1.5.log
+[OK  ] invalid: time_to_compile = 1.5  ->  023_invalid__time_to_compile___1.5.log
+[OK  ] invalid: time_to_debug = 1.5  ->  024_invalid__time_to_debug___1.5.log
+[OK  ] invalid: time_to_refactor = 1.5  ->  025_invalid__time_to_refactor___1.5.log
+[OK  ] invalid: number_of_compiles_required = 1.5  ->  026_invalid__number_of_compiles_required___1.5.log
+[OK  ] invalid: dongle_cooldown = 1.5  ->  027_invalid__dongle_cooldown___1.5.log
+[OK  ] invalid: number_of_coders = 0  ->  028_invalid__number_of_coders___0.log
+[OK  ] invalid: number_of_coders = -20  ->  029_invalid__number_of_coders___-20.log
+[OK  ] invalid: time_to_burnout = -5000  ->  030_invalid__time_to_burnout___-5000.log
+[OK  ] invalid: dongle_cooldown = -50  ->  031_invalid__dongle_cooldown___-50.log
+[OK  ] invalid: scientific notation (5e3)  ->  032_invalid__scientific_notation__5e3_.log
+[OK  ] invalid: hexadecimal (0x1388)  ->  033_invalid__hexadecimal__0x1388_.log
+[OK  ] invalid: leading space (' 20')  ->  034_invalid__leading_space____20__.log
+[OK  ] invalid: trailing space ('20 ')  ->  035_invalid__trailing_space___20___.log
+[FAIL] invalid: explicit plus sign (+20)  ->  036_invalid__explicit_plus_sign___20_.log
+[OK  ] invalid: thousands separator (5,000)  ->  037_invalid__thousands_separator__5_000_.log
+[OK  ] invalid: INT_MAX + 1 (2147483648)  ->  038_invalid__INT_MAX___1__2147483648_.log
+[OK  ] invalid: integer overflow (20 digits) on time_to_burnout  ->  039_invalid__integer_overflow__20_digits__on_time_to_burnout.log
+[OK  ] invalid: integer overflow (20 digits) on number_of_coders  ->  040_invalid__integer_overflow__20_digits__on_number_of_coders.log
+[OK  ] invalid: empty string for number_of_coders  ->  041_invalid__empty_string_for_number_of_coders.log
+[OK  ] invalid: time_to_compile = empty string  ->  042_invalid__time_to_compile___empty_string.log
+
+== Invalid arguments: tricky cases ==
+[OK  ] invalid: number followed by text (20abc)  ->  043_invalid__number_followed_by_text__20abc_.log
+[OK  ] invalid: time_to_burnout = 12abc  ->  044_invalid__time_to_burnout___12abc.log
+[OK  ] invalid: text followed by number (abc20)  ->  045_invalid__text_followed_by_number__abc20_.log
+[OK  ] invalid: number with unit (20ms)  ->  046_invalid__number_with_unit__20ms_.log
+[OK  ] invalid: scheduler = FIFO (case)  ->  047_invalid__scheduler___FIFO__case_.log
+[OK  ] invalid: scheduler = EDF (case)  ->  048_invalid__scheduler___EDF__case_.log
+[OK  ] invalid: scheduler = ' fifo' (space)  ->  049_invalid__scheduler_____fifo___space_.log
+[OK  ] invalid: scheduler = 'edf ' (space)  ->  050_invalid__scheduler____edf____space_.log
+[OK  ] invalid: scheduler = fifoo  ->  051_invalid__scheduler___fifoo.log
+[OK  ] invalid: scheduler = fifo2  ->  052_invalid__scheduler___fifo2.log
+[OK  ] invalid: scheduler = rr  ->  053_invalid__scheduler___rr.log
+[OK  ] invalid: scheduler = lifo (not allowed)  ->  054_invalid__scheduler___lifo__not_allowed_.log
+[OK  ] invalid: scheduler = empty string  ->  055_invalid__scheduler___empty_string.log
+
+== Valid edge cases ==
+[OK  ] number_of_compiles_required = 0 (immediate stop) [5 5000 200 200 200 0 0 fifo]  ->  056_number_of_compiles_required___0__immediate_stop___5_5000_200_200_200_0_0_fifo_.log
+[OK  ] dongle_cooldown = 0 [5 5000 200 200 200 5 0 fifo]  ->  057_dongle_cooldown___0__5_5000_200_200_200_5_0_fifo_.log
+[OK  ] 2 coders (smallest ring with 2 dongles) [2 5000 200 200 200 5 0 fifo]  ->  058_2_coders__smallest_ring_with_2_dongles___2_5000_200_200_200_5_0_fifo_.log
+
+== Simulations without burnout (fifo & edf) ==
+[OK  ] n=2 fifo [2 1000 100 100 100 3 10 fifo]  ->  059_n_2_fifo__2_1000_100_100_100_3_10_fifo_.log
+[OK  ] n=3 fifo [3 1000 100 100 100 3 10 fifo]  ->  060_n_3_fifo__3_1000_100_100_100_3_10_fifo_.log
+[OK  ] n=4 fifo [4 1000 100 100 100 3 10 fifo]  ->  061_n_4_fifo__4_1000_100_100_100_3_10_fifo_.log
+[OK  ] n=5 fifo [5 1000 100 100 100 3 10 fifo]  ->  062_n_5_fifo__5_1000_100_100_100_3_10_fifo_.log
+[OK  ] n=7 fifo [7 1000 100 100 100 3 10 fifo]  ->  063_n_7_fifo__7_1000_100_100_100_3_10_fifo_.log
+[OK  ] n=10 fifo [10 1000 100 100 100 3 10 fifo]  ->  064_n_10_fifo__10_1000_100_100_100_3_10_fifo_.log
+[OK  ] n=20 fifo [20 1000 100 100 100 3 10 fifo]  ->  065_n_20_fifo__20_1000_100_100_100_3_10_fifo_.log
+[OK  ] n=50 fifo [50 1000 100 100 100 3 10 fifo]  ->  066_n_50_fifo__50_1000_100_100_100_3_10_fifo_.log
+[OK  ] n=100 fifo [100 1000 100 100 100 3 10 fifo]  ->  067_n_100_fifo__100_1000_100_100_100_3_10_fifo_.log
+[OK  ] n=200 fifo [200 1000 100 100 100 3 10 fifo]  ->  068_n_200_fifo__200_1000_100_100_100_3_10_fifo_.log
+[OK  ] n=2 edf [2 1000 100 100 100 3 10 edf]  ->  069_n_2_edf__2_1000_100_100_100_3_10_edf_.log
+[OK  ] n=3 edf [3 1000 100 100 100 3 10 edf]  ->  070_n_3_edf__3_1000_100_100_100_3_10_edf_.log
+[OK  ] n=4 edf [4 1000 100 100 100 3 10 edf]  ->  071_n_4_edf__4_1000_100_100_100_3_10_edf_.log
+[OK  ] n=5 edf [5 1000 100 100 100 3 10 edf]  ->  072_n_5_edf__5_1000_100_100_100_3_10_edf_.log
+[OK  ] n=7 edf [7 1000 100 100 100 3 10 edf]  ->  073_n_7_edf__7_1000_100_100_100_3_10_edf_.log
+[OK  ] n=10 edf [10 1000 100 100 100 3 10 edf]  ->  074_n_10_edf__10_1000_100_100_100_3_10_edf_.log
+[OK  ] n=20 edf [20 1000 100 100 100 3 10 edf]  ->  075_n_20_edf__20_1000_100_100_100_3_10_edf_.log
+[OK  ] n=50 edf [50 1000 100 100 100 3 10 edf]  ->  076_n_50_edf__50_1000_100_100_100_3_10_edf_.log
+[OK  ] n=100 edf [100 1000 100 100 100 3 10 edf]  ->  077_n_100_edf__100_1000_100_100_100_3_10_edf_.log
+[OK  ] n=200 edf [200 1000 100 100 100 3 10 edf]  ->  078_n_200_edf__200_1000_100_100_100_3_10_edf_.log
+
+== Cooldown, N=1, tiny timings, tight edf ==
+[OK  ] cooldown 0 fifo [4 1000 100 100 100 3 0 fifo]  ->  079_cooldown_0_fifo__4_1000_100_100_100_3_0_fifo_.log
+[OK  ] cooldown 200 fifo [4 2000 100 100 100 3 200 fifo]  ->  080_cooldown_200_fifo__4_2000_100_100_100_3_200_fifo_.log
+[OK  ] cooldown 500 fifo [4 4000 100 100 100 3 500 fifo]  ->  081_cooldown_500_fifo__4_4000_100_100_100_3_500_fifo_.log
+[OK  ] N=1 fifo [4 1000 100 100 100 1 10 fifo]  ->  082_N_1_fifo__4_1000_100_100_100_1_10_fifo_.log
+[OK  ] N=20 tiny timings fifo [5 500 10 10 10 20 2 fifo]  ->  083_N_20_tiny_timings_fifo__5_500_10_10_10_20_2_fifo_.log
+[OK  ] cooldown 0 edf [4 1000 100 100 100 3 0 edf]  ->  084_cooldown_0_edf__4_1000_100_100_100_3_0_edf_.log
+[OK  ] cooldown 200 edf [4 2000 100 100 100 3 200 edf]  ->  085_cooldown_200_edf__4_2000_100_100_100_3_200_edf_.log
+[OK  ] cooldown 500 edf [4 4000 100 100 100 3 500 edf]  ->  086_cooldown_500_edf__4_4000_100_100_100_3_500_edf_.log
+[OK  ] N=1 edf [4 1000 100 100 100 1 10 edf]  ->  087_N_1_edf__4_1000_100_100_100_1_10_edf_.log
+[OK  ] N=20 tiny timings edf [5 500 10 10 10 20 2 edf]  ->  088_N_20_tiny_timings_edf__5_500_10_10_10_20_2_edf_.log
+[OK  ] tight edf, 5 coders [5 500 100 50 50 5 10 edf]  ->  089_tight_edf__5_coders__5_500_100_50_50_5_10_edf_.log
+[OK  ] tight edf, 3 coders [3 400 100 100 100 5 5 edf]  ->  090_tight_edf__3_coders__3_400_100_100_100_5_5_edf_.log
+[OK  ] tight edf, 7 coders [7 600 100 100 100 5 10 edf]  ->  091_tight_edf__7_coders__7_600_100_100_100_5_10_edf_.log
+
+== Subject reference cases (easy) ==

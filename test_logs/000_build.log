@@ -1,0 +1,18 @@
+=== BUILD LOG ===
+Command     : make fclean && make
+Return code : 0
+--- output ---
+[42m [49m  mkdir build/
+[32mcc -g -Wall -Wextra -Werror -pthread  -Iinclude/ -c src/main.c -o build/main.o
+[39m[32mcc -g -Wall -Wextra -Werror -pthread  -Iinclude/ -c src/time.c -o build/time.o
+[39m[32mcc -g -Wall -Wextra -Werror -pthread  -Iinclude/ -c src/cli_argparser.c -o build/cli_argparser.o
+[39m[32mcc -g -Wall -Wextra -Werror -pthread  -Iinclude/ -c src/simulation.c -o build/simulation.o
+[39m[32mcc -g -Wall -Wextra -Werror -pthread  -Iinclude/ -c src/init.c -o build/init.o
+[39m[32mcc -g -Wall -Wextra -Werror -pthread  -Iinclude/ -c src/coder.c -o build/coder.o
+[39m[32mcc -g -Wall -Wextra -Werror -pthread  -Iinclude/ -c src/monitor.c -o build/monitor.o
+[39m[32mcc -g -Wall -Wextra -Werror -pthread  -Iinclude/ -c src/queue.c -o build/queue.o
+[39m[32mcc -g -Wall -Wextra -Werror -pthread  -Iinclude/ -c src/queue_helper.c -o build/queue_helper.o
+[39m[32mcc -g -Wall -Wextra -Werror -pthread  -Iinclude/ -c src/dongle.c -o build/dongle.o
+[39m[32mcc -g -Wall -Wextra -Werror -pthread  -Iinclude/ -c src/cleanup.c -o build/cleanup.o
+[39m[33mcc -g -Wall -Wextra -Werror -pthread  build/main.o build/time.o build/cli_argparser.o build/simulation.o build/init.o build/coder.o build/monitor.o build/queue.o build/queue_helper.o build/dongle.o build/cleanup.o -o codexion
+[39m

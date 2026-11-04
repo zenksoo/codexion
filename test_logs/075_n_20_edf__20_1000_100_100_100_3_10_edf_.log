@@ -1,0 +1,329 @@
+=== TEST: n=20 edf [20 1000 100 100 100 3 10 edf] ===
+Date    : 2026-11-04 23:50:27
+Dir     : /home/amissa/core/coding/cursus/codexion
+
+--- RUN ---
+Command     : ./codexion 20 1000 100 100 100 3 10 edf 
+Timeout     : 40s
+Return code : 0
+--- stdout (first 5000 lines) ---
+0 20 has taken a dongle
+0 20 has taken a dongle
+0 20 is compiling
+0 13 has taken a dongle
+0 13 has taken a dongle
+0 13 is compiling
+0 15 has taken a dongle
+0 15 has taken a dongle
+0 15 is compiling
+0 3 has taken a dongle
+0 3 has taken a dongle
+0 3 is compiling
+0 12 has taken a dongle
+0 2 has taken a dongle
+0 5 has taken a dongle
+0 5 has taken a dongle
+0 5 is compiling
+0 7 has taken a dongle
+0 7 has taken a dongle
+0 7 is compiling
+0 17 has taken a dongle
+0 17 has taken a dongle
+0 17 is compiling
+1 9 has taken a dongle
+1 9 has taken a dongle
+1 9 is compiling
+100 15 is debugging
+100 20 is debugging
+100 13 is debugging
+100 5 is debugging
+100 3 is debugging
+100 7 is debugging
+101 9 is debugging
+101 17 is debugging
+110 14 has taken a dongle
+110 14 has taken a dongle
+110 14 is compiling
+110 6 has taken a dongle
+110 6 has taken a dongle
+110 6 is compiling
+110 12 has taken a dongle
+110 12 is compiling
+110 19 has taken a dongle
+110 19 has taken a dongle
+110 19 is compiling
+110 4 has taken a dongle
+110 4 has taken a dongle
+110 4 is compiling
+110 2 has taken a dongle
+110 2 is compiling
+110 8 has taken a dongle
+110 16 has taken a dongle
+111 8 has taken a dongle
+111 8 is compiling
+111 10 has taken a dongle
+111 10 has taken a dongle
+111 10 is compiling
+111 16 has taken a dongle
+111 16 is compiling
+111 18 has taken a dongle
+200 7 is refactoring
+200 3 is refactoring
+200 20 is refactoring
+200 13 is refactoring
+200 5 is refactoring
+200 15 is refactoring
+201 9 is refactoring
+201 17 is refactoring
+210 19 is debugging
+210 12 is debugging
+210 14 is debugging
+210 2 is debugging
+210 6 is debugging
+210 4 is debugging
+211 16 is debugging
+211 8 is debugging
+211 10 is debugging
+220 18 has taken a dongle
+220 18 is compiling
+220 1 has taken a dongle
+220 1 has taken a dongle
+220 1 is compiling
+220 11 has taken a dongle
+221 11 has taken a dongle
+221 11 is compiling
+300 13 has taken a dongle
+300 13 has taken a dongle
+300 13 is compiling
+300 3 has taken a dongle
+300 3 has taken a dongle
+300 3 is compiling
+300 20 has taken a dongle
+300 7 has taken a dongle
+300 7 has taken a dongle
+300 7 is compiling
+300 15 has taken a dongle
+300 15 has taken a dongle
+300 15 is compiling
+300 5 has taken a dongle
+300 5 has taken a dongle
+300 5 is compiling
+301 9 has taken a dongle
+301 9 has taken a dongle
+301 9 is compiling
+310 6 is refactoring
+310 4 is refactoring
+310 14 is refactoring
+310 19 is refactoring
+310 2 is refactoring
+310 12 is refactoring
+311 8 is refactoring
+311 10 is refactoring
+311 16 is refactoring
+320 1 is debugging
+320 18 is debugging
+321 11 is debugging
+330 20 has taken a dongle
+330 20 is compiling
+330 17 has taken a dongle
+330 17 has taken a dongle
+330 17 is compiling
+400 5 is debugging
+400 3 is debugging
+400 13 is debugging
+400 7 is debugging
+400 15 is debugging
+401 9 is debugging
+410 6 has taken a dongle
+410 6 has taken a dongle
+410 6 is compiling
+410 12 has taken a dongle
+410 12 has taken a dongle
+410 12 is compiling
+410 4 has taken a dongle
+410 4 has taken a dongle
+410 4 is compiling
+410 14 has taken a dongle
+410 14 has taken a dongle
+410 14 is compiling
+410 2 has taken a dongle
+410 2 has taken a dongle
+410 2 is compiling
+411 16 has taken a dongle
+411 10 has taken a dongle
+411 10 has taken a dongle
+411 10 is compiling
+411 8 has taken a dongle
+411 8 has taken a dongle
+411 8 is compiling
+420 18 is refactoring
+420 1 is refactoring
+421 11 is refactoring
+430 20 is debugging
+430 17 is debugging
+440 16 has taken a dongle
+440 16 is compiling
+440 19 has taken a dongle
+440 19 has taken a dongle
+440 19 is compiling
+500 13 is refactoring
+500 7 is refactoring
+500 3 is refactoring
+500 15 is refactoring
+500 5 is refactoring
+501 9 is refactoring
+510 14 is debugging
+510 6 is debugging
+510 12 is debugging
+510 2 is debugging
+510 4 is debugging
+511 8 is debugging
+511 10 is debugging
+520 1 has taken a dongle
+520 1 has taken a dongle
+520 1 is compiling
+520 18 has taken a dongle
+521 11 has taken a dongle
+521 11 has taken a dongle
+521 11 is compiling
+530 20 is refactoring
+530 17 is refactoring
+540 19 is debugging
+540 16 is debugging
+550 18 has taken a dongle
+550 18 is compiling
+600 15 has taken a dongle
+600 15 has taken a dongle
+600 15 is compiling
+600 5 has taken a dongle
+600 5 has taken a dongle
+600 5 is compiling
+600 7 has taken a dongle
+600 7 has taken a dongle
+600 7 is compiling
+600 13 has taken a dongle
+600 13 has taken a dongle
+600 13 is compiling
+600 3 has taken a dongle
+600 3 has taken a dongle
+600 3 is compiling
+601 9 has taken a dongle
+601 9 has taken a dongle
+601 9 is compiling
+610 4 is refactoring
+610 6 is refactoring
+610 2 is refactoring
+610 14 is refactoring
+610 12 is refactoring
+611 10 is refactoring
+611 8 is refactoring
+620 1 is debugging
+621 11 is debugging
+630 20 has taken a dongle
+630 20 has taken a dongle
+630 20 is compiling
+640 19 is refactoring
+640 16 is refactoring
+650 18 is debugging
+660 17 has taken a dongle
+660 17 has taken a dongle
+660 17 is compiling
+700 5 is debugging
+700 7 is debugging
+700 13 is debugging
+700 3 is debugging
+700 15 is debugging
+701 9 is debugging
+710 12 has taken a dongle
+710 12 has taken a dongle
+710 12 is compiling
+710 14 has taken a dongle
+710 14 has taken a dongle
+710 14 is compiling
+710 4 has taken a dongle
+710 4 has taken a dongle
+710 4 is compiling
+710 2 has taken a dongle
+710 2 has taken a dongle
+710 2 is compiling
+710 6 has taken a dongle
+710 6 has taken a dongle
+710 6 is compiling
+711 10 has taken a dongle
+711 10 has taken a dongle
+711 10 is compiling
+711 8 has taken a dongle
+711 8 has taken a dongle
+711 8 is compiling
+720 1 is refactoring
+721 11 is refactoring
+730 20 is debugging
+740 19 has taken a dongle
+740 19 has taken a dongle
+740 19 is compiling
+740 16 has taken a dongle
+750 18 is refactoring
+760 17 is debugging
+770 16 has taken a dongle
+770 16 is compiling
+800 7 is refactoring
+800 3 is refactoring
+800 15 is refactoring
+800 13 is refactoring
+800 5 is refactoring
+801 9 is refactoring
+810 4 is debugging
+810 14 is debugging
+810 6 is debugging
+810 2 is debugging
+810 12 is debugging
+811 8 is debugging
+811 10 is debugging
+820 1 has taken a dongle
+820 1 has taken a dongle
+820 1 is compiling
+821 11 has taken a dongle
+821 11 has taken a dongle
+821 11 is compiling
+830 20 is refactoring
+840 19 is debugging
+850 18 has taken a dongle
+850 18 has taken a dongle
+850 18 is compiling
+860 17 is refactoring
+870 16 is debugging
+900 15 has taken a dongle
+900 15 has taken a dongle
+900 15 is compiling
+900 13 has taken a dongle
+900 13 has taken a dongle
+900 13 is compiling
+900 7 has taken a dongle
+900 7 has taken a dongle
+900 7 is compiling
+900 5 has taken a dongle
+900 5 has taken a dongle
+900 5 is compiling
+900 3 has taken a dongle
+900 3 has taken a dongle
+900 3 is compiling
+901 9 has taken a dongle
+901 9 has taken a dongle
+901 9 is compiling
+910 6 is refactoring
+910 4 is refactoring
+910 14 is refactoring
+910 12 is refactoring
+910 2 is refactoring
+911 10 is refactoring
+911 8 is refactoring
+920 1 is debugging
+921 11 is debugging
+930 20 has taken a dongle
+930 20 has taken a dongle
+930 20 is compiling
+940 19 is refactoring
+950 18 is debugging
+--- stderr (first 200 lines) ---
+
+=== VERDICT: OK ===

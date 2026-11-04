@@ -6,27 +6,26 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/30 18:24:05 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 23:08:10 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/04 22:27:51 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-#include <bits/time.h>
-#include <pthread.h>
-#include <stdlib.h>
-#include <time.h>
 
-void	wait_dongle(t_dongle *d)
+int	radio_log(t_coder *coder, char *msg)
 {
-	struct timespec	ts;
-	long long		wake;
+	t_table	*table;
 
-	wake = now_ms() + 10;
-	if (!d->busy)
-		wake = d->available_at;
-	ts.tv_sec = wake / 1000;
-	ts.tv_nsec = (wake % 1000) * 1000000;
-	pthread_cond_timedwait(&d->cond, &d->lock, &ts);
+	table = coder->table;
+	if (pthread_mutex_lock(&table->log_lock))
+		return (1);
+	if (is_stoped(table))
+		return (pthread_mutex_unlock(&table->log_lock), 1);
+	printf("%lld %d %s\n", now_ms() - table->start_time, coder->id, msg);
+	fflush(stdout);
+	if (pthread_mutex_unlock(&table->log_lock))
+		return (1);
+	return (0);
 }
 
 int	compile(t_coder *coder)
@@ -57,13 +56,8 @@ void	*coder_routine(void *arg)
 	coder = arg;
 	table = coder->table;
 	wait_for_start((void *)coder->table);
-	while (coder->id != coder->table->ready_coder_id && !is_stoped(table))
-		;
 	if (is_stoped(table))
 		return (NULL);
-	pthread_mutex_lock(&coder->table->state_lock);
-	coder->table->ready_coder_id++;
-	pthread_mutex_unlock(&coder->table->state_lock);
 	while (!is_stoped(coder->table))
 	{
 		if (compile(coder))

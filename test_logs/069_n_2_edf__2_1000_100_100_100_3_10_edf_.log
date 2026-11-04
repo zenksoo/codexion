@@ -1,0 +1,41 @@
+=== TEST: n=2 edf [2 1000 100 100 100 3 10 edf] ===
+Date    : 2026-11-04 23:50:21
+Dir     : /home/amissa/core/coding/cursus/codexion
+
+--- RUN ---
+Command     : ./codexion 2 1000 100 100 100 3 10 edf 
+Timeout     : 40s
+Return code : 0
+--- stdout (first 5000 lines) ---
+0 1 has taken a dongle
+0 1 has taken a dongle
+0 1 is compiling
+100 1 is debugging
+110 2 has taken a dongle
+110 2 has taken a dongle
+110 2 is compiling
+200 1 is refactoring
+210 2 is debugging
+300 1 has taken a dongle
+300 1 has taken a dongle
+300 1 is compiling
+310 2 is refactoring
+400 1 is debugging
+410 2 has taken a dongle
+410 2 has taken a dongle
+410 2 is compiling
+500 1 is refactoring
+510 2 is debugging
+600 1 has taken a dongle
+600 1 has taken a dongle
+600 1 is compiling
+610 2 is refactoring
+700 1 is debugging
+710 2 has taken a dongle
+710 2 has taken a dongle
+710 2 is compiling
+800 1 is refactoring
+810 2 is debugging
+--- stderr (first 200 lines) ---
+
+=== VERDICT: OK ===

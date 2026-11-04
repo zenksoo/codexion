@@ -1,0 +1,87 @@
+=== TEST: tight edf, 3 coders [3 400 100 100 100 5 5 edf] ===
+Date    : 2026-11-04 23:50:47
+Dir     : /home/amissa/core/coding/cursus/codexion
+
+--- RUN ---
+Command     : ./codexion 3 400 100 100 100 5 5 edf 
+Timeout     : 40s
+Return code : 0
+--- stdout (first 5000 lines) ---
+0 1 has taken a dongle
+0 3 has taken a dongle
+0 3 has taken a dongle
+0 3 is compiling
+100 3 is debugging
+105 1 has taken a dongle
+105 1 is compiling
+200 3 is refactoring
+205 1 is debugging
+210 2 has taken a dongle
+210 2 has taken a dongle
+210 2 is compiling
+300 3 has taken a dongle
+305 1 is refactoring
+310 2 is debugging
+315 3 has taken a dongle
+315 3 is compiling
+405 1 has taken a dongle
+410 2 is refactoring
+415 3 is debugging
+420 1 has taken a dongle
+420 1 is compiling
+515 3 is refactoring
+520 1 is debugging
+525 2 has taken a dongle
+525 2 has taken a dongle
+525 2 is compiling
+615 3 has taken a dongle
+620 1 is refactoring
+625 2 is debugging
+630 3 has taken a dongle
+630 3 is compiling
+720 1 has taken a dongle
+725 2 is refactoring
+730 3 is debugging
+735 1 has taken a dongle
+735 1 is compiling
+830 3 is refactoring
+835 1 is debugging
+840 2 has taken a dongle
+840 2 has taken a dongle
+840 2 is compiling
+930 3 has taken a dongle
+935 1 is refactoring
+940 2 is debugging
+945 3 has taken a dongle
+945 3 is compiling
+1035 1 has taken a dongle
+1040 2 is refactoring
+1045 3 is debugging
+1050 1 has taken a dongle
+1050 1 is compiling
+1145 3 is refactoring
+1150 1 is debugging
+1155 2 has taken a dongle
+1155 2 has taken a dongle
+1155 2 is compiling
+1245 3 has taken a dongle
+1250 1 is refactoring
+1255 2 is debugging
+1260 3 has taken a dongle
+1260 3 is compiling
+1350 1 has taken a dongle
+1355 2 is refactoring
+1360 3 is debugging
+1365 1 has taken a dongle
+1365 1 is compiling
+1460 3 is refactoring
+1465 1 is debugging
+1470 2 has taken a dongle
+1470 2 has taken a dongle
+1470 2 is compiling
+1560 3 has taken a dongle
+1565 1 is refactoring
+1570 2 is debugging
+--- stderr (first 200 lines) ---
+
+=== VERDICT: OK ===

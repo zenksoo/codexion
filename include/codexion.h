@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:58:33 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/04 12:38:19 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/05 00:16:19 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdlib.h>
+# include <fcntl.h>
 
 # define FIFO 1
 # define EDF 2
@@ -32,13 +33,6 @@
 # define COOLDOWN 4
 # define C_REQUIRED 5
 # define POLICY 6
-
-enum e_ERROR
-{
-	MISSING_ARGUMENT,
-	INVALID_ARGUMENT,
-	EXTRA_ARGUMENT,
-};
 
 typedef struct s_heap_node
 {
@@ -87,23 +81,21 @@ typedef struct s_table
 	long long		start_time;
 	int				stop;
 	int				ready;
-	int				ready_coder_id;
 	pthread_mutex_t	state_lock;
 	pthread_mutex_t	log_lock;
-	int				initialized_mutex[2]; // [0] for log, [1] for state
+	int				destroy_mutex[2]; // [0] for log, [1] for state
 	t_dongle		**dongles;
 	t_coder			**coders;
 	pthread_t		monitor;
 }	t_table;
 
-
 int			destroy_dongles(t_table *table);
 int			destroy_coders(t_table *table);
-void		general_cleanup(t_table table);
+void		general_cleanup(t_table *table);
 
 int			cli_argument_parser(int argc, char **argv);
 int			valid_passed_argument(char **argv, int argSize);
-int			_display_error(enum e_ERROR err_status, void *extra_msg);
+int			display_error(void);
 
 void		swap_nodes(t_heap_node *a, t_heap_node *b);
 int			is_better(t_heap_node a, t_heap_node b);
@@ -129,13 +121,13 @@ void		shift_down(t_heap *heap, int i);
 void		heap_remove(t_heap *heap, int id);
 
 int			init_coders(t_table *table);
-int			init_table(t_table *table);
+int			init_table(t_table *table, char **cli_args);
 int			pick_cli_arguments(t_table *table, char **cli_args);
 
 int			wait_for_start(void *arg);
 int			run_simulation(t_table *table);
 int			simulation_sleep(t_table *table, long long ms);
-void		stop_simulation(t_table *table);
+void		wake_coders(t_table *table);
 
 void		*monitor_routine(void *arg);
 
@@ -149,5 +141,4 @@ int			ms_sleep(long long ms, t_table *table);
 long long	timespec_to_ms(struct timespec ts);
 
 int			radio_log(t_coder *coder, char *msg);
-
 #endif

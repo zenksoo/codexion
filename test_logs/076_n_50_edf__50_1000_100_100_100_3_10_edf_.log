@@ -1,0 +1,792 @@
+=== TEST: n=50 edf [50 1000 100 100 100 3 10 edf] ===
+Date    : 2026-11-04 23:50:28
+Dir     : /home/amissa/core/coding/cursus/codexion
+
+--- RUN ---
+Command     : ./codexion 50 1000 100 100 100 3 10 edf 
+Timeout     : 40s
+Return code : 0
+--- stdout (first 5000 lines) ---
+1 40 has taken a dongle
+1 40 has taken a dongle
+1 40 is compiling
+1 16 has taken a dongle
+1 16 has taken a dongle
+1 16 is compiling
+1 2 has taken a dongle
+1 2 has taken a dongle
+1 2 is compiling
+1 34 has taken a dongle
+1 34 has taken a dongle
+1 34 is compiling
+1 4 has taken a dongle
+1 4 has taken a dongle
+1 4 is compiling
+1 17 has taken a dongle
+1 27 has taken a dongle
+1 20 has taken a dongle
+1 20 has taken a dongle
+1 20 is compiling
+1 35 has taken a dongle
+1 24 has taken a dongle
+1 24 has taken a dongle
+1 24 is compiling
+1 7 has taken a dongle
+1 7 has taken a dongle
+1 7 is compiling
+1 42 has taken a dongle
+1 42 has taken a dongle
+1 42 is compiling
+1 50 has taken a dongle
+1 50 has taken a dongle
+1 50 is compiling
+1 43 has taken a dongle
+1 48 has taken a dongle
+1 48 has taken a dongle
+1 48 is compiling
+1 25 has taken a dongle
+1 21 has taken a dongle
+1 46 has taken a dongle
+1 46 has taken a dongle
+1 46 is compiling
+1 27 has taken a dongle
+1 27 is compiling
+1 12 has taken a dongle
+1 12 has taken a dongle
+1 12 is compiling
+1 13 has taken a dongle
+1 31 has taken a dongle
+1 31 has taken a dongle
+1 9 has taken a dongle
+1 31 is compiling
+1 9 has taken a dongle
+1 5 has taken a dongle
+1 38 has taken a dongle
+1 38 has taken a dongle
+1 38 is compiling
+1 29 has taken a dongle
+1 29 has taken a dongle
+1 29 is compiling
+1 9 is compiling
+101 46 is debugging
+101 40 is debugging
+101 50 is debugging
+101 2 is debugging
+101 16 is debugging
+101 27 is debugging
+101 7 is debugging
+101 24 is debugging
+101 20 is debugging
+101 29 is debugging
+101 31 is debugging
+101 34 is debugging
+101 42 is debugging
+101 4 is debugging
+101 48 is debugging
+101 12 is debugging
+101 38 is debugging
+101 9 is debugging
+111 19 has taken a dongle
+111 39 has taken a dongle
+111 49 has taken a dongle
+111 5 has taken a dongle
+111 30 has taken a dongle
+111 41 has taken a dongle
+111 35 has taken a dongle
+111 35 is compiling
+111 45 has taken a dongle
+111 25 has taken a dongle
+111 15 has taken a dongle
+111 11 has taken a dongle
+111 37 has taken a dongle
+111 37 has taken a dongle
+111 37 is compiling
+111 19 has taken a dongle
+111 19 is compiling
+111 43 has taken a dongle
+111 43 is compiling
+111 47 has taken a dongle
+111 47 has taken a dongle
+111 47 is compiling
+111 8 has taken a dongle
+111 8 has taken a dongle
+111 8 is compiling
+111 39 has taken a dongle
+111 39 is compiling
+111 17 has taken a dongle
+111 17 is compiling
+111 1 has taken a dongle
+111 1 has taken a dongle
+111 1 is compiling
+111 28 has taken a dongle
+111 28 has taken a dongle
+111 28 is compiling
+111 49 has taken a dongle
+111 49 is compiling
+111 33 has taken a dongle
+111 33 has taken a dongle
+111 33 is compiling
+111 5 is compiling
+111 23 has taken a dongle
+111 21 has taken a dongle
+111 21 is compiling
+111 30 has taken a dongle
+111 30 is compiling
+111 41 has taken a dongle
+111 41 is compiling
+111 10 has taken a dongle
+111 45 has taken a dongle
+111 45 is compiling
+111 25 is compiling
+111 15 has taken a dongle
+111 15 is compiling
+111 11 has taken a dongle
+111 11 is compiling
+111 32 has taken a dongle
+111 3 has taken a dongle
+111 3 has taken a dongle
+111 3 is compiling
+111 13 has taken a dongle
+111 13 is compiling
+111 23 has taken a dongle
+111 23 is compiling
+201 50 is refactoring
+201 2 is refactoring
+201 27 is refactoring
+201 29 is refactoring
+201 40 is refactoring
+201 31 is refactoring
+201 4 is refactoring
+201 7 is refactoring
+201 16 is refactoring
+201 24 is refactoring
+201 42 is refactoring
+201 34 is refactoring
+201 20 is refactoring
+201 46 is refactoring
+201 38 is refactoring
+201 48 is refactoring
+201 12 is refactoring
+201 9 is refactoring
+211 43 is debugging
+211 23 is debugging
+211 17 is debugging
+211 45 is debugging
+211 15 is debugging
+211 30 is debugging
+211 37 is debugging
+211 35 is debugging
+211 5 is debugging
+211 41 is debugging
+211 8 is debugging
+211 3 is debugging
+211 25 is debugging
+211 47 is debugging
+211 28 is debugging
+211 13 is debugging
+211 11 is debugging
+211 19 is debugging
+211 1 is debugging
+211 39 is debugging
+211 33 is debugging
+211 21 is debugging
+211 49 is debugging
+221 22 has taken a dongle
+221 22 has taken a dongle
+221 22 is compiling
+221 32 has taken a dongle
+221 32 is compiling
+221 44 has taken a dongle
+221 44 has taken a dongle
+221 44 is compiling
+221 14 has taken a dongle
+221 14 has taken a dongle
+221 14 is compiling
+221 6 has taken a dongle
+221 6 has taken a dongle
+221 6 is compiling
+221 18 has taken a dongle
+221 18 has taken a dongle
+221 18 is compiling
+221 36 has taken a dongle
+221 36 has taken a dongle
+221 36 is compiling
+221 10 has taken a dongle
+221 10 is compiling
+221 26 has taken a dongle
+221 26 has taken a dongle
+221 26 is compiling
+301 50 has taken a dongle
+301 50 has taken a dongle
+301 29 has taken a dongle
+301 29 has taken a dongle
+301 29 is compiling
+301 7 has taken a dongle
+301 48 has taken a dongle
+301 48 has taken a dongle
+301 48 is compiling
+301 46 has taken a dongle
+301 46 has taken a dongle
+301 46 is compiling
+301 12 has taken a dongle
+301 12 has taken a dongle
+301 12 is compiling
+301 34 has taken a dongle
+301 34 has taken a dongle
+301 34 is compiling
+301 38 has taken a dongle
+301 38 has taken a dongle
+301 38 is compiling
+301 24 has taken a dongle
+301 24 has taken a dongle
+301 24 is compiling
+301 27 has taken a dongle
+301 42 has taken a dongle
+301 42 has taken a dongle
+301 42 is compiling
+301 16 has taken a dongle
+301 16 has taken a dongle
+301 16 is compiling
+301 50 is compiling
+301 2 has taken a dongle
+301 2 has taken a dongle
+301 2 is compiling
+301 40 has taken a dongle
+301 40 has taken a dongle
+301 40 is compiling
+301 20 has taken a dongle
+301 20 has taken a dongle
+301 20 is compiling
+301 4 has taken a dongle
+301 4 has taken a dongle
+301 4 is compiling
+311 30 is refactoring
+311 43 is refactoring
+311 3 is refactoring
+311 5 is refactoring
+311 8 is refactoring
+311 37 is refactoring
+311 19 is refactoring
+311 13 is refactoring
+311 28 is refactoring
+311 45 is refactoring
+311 23 is refactoring
+311 25 is refactoring
+311 33 is refactoring
+311 35 is refactoring
+311 11 is refactoring
+311 39 is refactoring
+311 47 is refactoring
+311 49 is refactoring
+311 41 is refactoring
+311 17 is refactoring
+311 1 is refactoring
+311 15 is refactoring
+311 21 is refactoring
+321 10 is debugging
+321 36 is debugging
+321 32 is debugging
+321 22 is debugging
+321 6 is debugging
+321 14 is debugging
+321 26 is debugging
+321 18 is debugging
+321 44 is debugging
+331 7 has taken a dongle
+331 7 is compiling
+331 27 has taken a dongle
+331 27 is compiling
+331 31 has taken a dongle
+331 31 has taken a dongle
+331 31 is compiling
+331 9 has taken a dongle
+331 9 has taken a dongle
+331 9 is compiling
+401 38 is debugging
+401 42 is debugging
+401 34 is debugging
+401 16 is debugging
+401 20 is debugging
+401 2 is debugging
+401 46 is debugging
+401 12 is debugging
+401 24 is debugging
+401 29 is debugging
+401 4 is debugging
+401 40 is debugging
+401 48 is debugging
+401 50 is debugging
+411 33 has taken a dongle
+411 43 has taken a dongle
+411 43 has taken a dongle
+411 43 is compiling
+411 1 has taken a dongle
+411 15 has taken a dongle
+411 15 has taken a dongle
+411 15 is compiling
+411 25 has taken a dongle
+411 25 has taken a dongle
+411 25 is compiling
+411 13 has taken a dongle
+411 13 has taken a dongle
+411 13 is compiling
+411 45 has taken a dongle
+411 45 has taken a dongle
+411 45 is compiling
+411 21 has taken a dongle
+411 21 has taken a dongle
+411 21 is compiling
+411 35 has taken a dongle
+411 35 has taken a dongle
+411 35 is compiling
+411 37 has taken a dongle
+411 37 has taken a dongle
+411 37 is compiling
+411 39 has taken a dongle
+411 39 has taken a dongle
+411 39 is compiling
+411 23 has taken a dongle
+411 23 has taken a dongle
+411 23 is compiling
+411 11 has taken a dongle
+411 11 has taken a dongle
+411 11 is compiling
+411 1 has taken a dongle
+411 33 has taken a dongle
+411 5 has taken a dongle
+411 17 has taken a dongle
+411 47 has taken a dongle
+411 47 has taken a dongle
+411 47 is compiling
+411 1 is compiling
+411 19 has taken a dongle
+411 19 has taken a dongle
+411 19 is compiling
+411 49 has taken a dongle
+411 41 has taken a dongle
+411 41 has taken a dongle
+411 41 is compiling
+411 3 has taken a dongle
+411 17 has taken a dongle
+411 17 is compiling
+411 49 has taken a dongle
+411 49 is compiling
+411 33 is compiling
+411 5 has taken a dongle
+411 5 is compiling
+411 3 has taken a dongle
+411 3 is compiling
+411 30 has taken a dongle
+421 44 is refactoring
+421 14 is refactoring
+421 18 is refactoring
+421 6 is refactoring
+421 26 is refactoring
+421 22 is refactoring
+421 10 is refactoring
+421 36 is refactoring
+421 32 is refactoring
+431 9 is debugging
+431 27 is debugging
+431 7 is debugging
+431 31 is debugging
+441 28 has taken a dongle
+441 28 has taken a dongle
+441 28 is compiling
+441 8 has taken a dongle
+441 8 has taken a dongle
+441 8 is compiling
+441 30 has taken a dongle
+441 30 is compiling
+501 46 is refactoring
+501 38 is refactoring
+501 42 is refactoring
+501 4 is refactoring
+501 40 is refactoring
+501 16 is refactoring
+501 20 is refactoring
+501 29 is refactoring
+501 12 is refactoring
+501 34 is refactoring
+501 24 is refactoring
+501 50 is refactoring
+501 48 is refactoring
+501 2 is refactoring
+511 47 is debugging
+511 33 is debugging
+511 15 is debugging
+511 25 is debugging
+511 39 is debugging
+511 37 is debugging
+511 41 is debugging
+511 1 is debugging
+511 19 is debugging
+511 11 is debugging
+511 21 is debugging
+511 49 is debugging
+511 23 is debugging
+511 17 is debugging
+511 45 is debugging
+511 35 is debugging
+511 5 is debugging
+511 43 is debugging
+511 3 is debugging
+511 13 is debugging
+521 32 has taken a dongle
+521 14 has taken a dongle
+521 36 has taken a dongle
+521 10 has taken a dongle
+521 6 has taken a dongle
+521 6 has taken a dongle
+521 6 is compiling
+521 26 has taken a dongle
+521 26 has taken a dongle
+521 26 is compiling
+521 14 has taken a dongle
+521 14 is compiling
+521 22 has taken a dongle
+521 22 has taken a dongle
+521 22 is compiling
+521 36 has taken a dongle
+521 36 is compiling
+521 10 has taken a dongle
+521 10 is compiling
+521 18 has taken a dongle
+521 18 has taken a dongle
+521 18 is compiling
+521 32 has taken a dongle
+521 32 is compiling
+521 44 has taken a dongle
+521 44 has taken a dongle
+521 44 is compiling
+531 9 is refactoring
+531 31 is refactoring
+531 7 is refactoring
+531 27 is refactoring
+541 28 is debugging
+541 30 is debugging
+541 8 is debugging
+601 34 has taken a dongle
+601 34 has taken a dongle
+601 2 has taken a dongle
+601 2 has taken a dongle
+601 2 is compiling
+601 42 has taken a dongle
+601 12 has taken a dongle
+601 12 has taken a dongle
+601 12 is compiling
+601 48 has taken a dongle
+601 48 has taken a dongle
+601 48 is compiling
+601 46 has taken a dongle
+601 46 has taken a dongle
+601 46 is compiling
+601 20 has taken a dongle
+601 20 has taken a dongle
+601 20 is compiling
+601 29 has taken a dongle
+601 29 has taken a dongle
+601 29 is compiling
+601 16 has taken a dongle
+601 16 has taken a dongle
+601 16 is compiling
+601 24 has taken a dongle
+601 24 has taken a dongle
+601 24 is compiling
+601 50 has taken a dongle
+601 50 has taken a dongle
+601 38 has taken a dongle
+601 38 has taken a dongle
+601 38 is compiling
+601 40 has taken a dongle
+601 50 is compiling
+601 42 has taken a dongle
+601 42 is compiling
+601 34 is compiling
+601 40 has taken a dongle
+601 40 is compiling
+601 4 has taken a dongle
+601 4 has taken a dongle
+601 4 is compiling
+611 11 is refactoring
+611 21 is refactoring
+611 35 is refactoring
+611 19 is refactoring
+611 39 is refactoring
+611 47 is refactoring
+611 37 is refactoring
+611 3 is refactoring
+611 1 is refactoring
+611 49 is refactoring
+611 5 is refactoring
+611 43 is refactoring
+611 13 is refactoring
+611 15 is refactoring
+611 25 is refactoring
+611 17 is refactoring
+611 45 is refactoring
+611 33 is refactoring
+611 41 is refactoring
+611 23 is refactoring
+621 26 is debugging
+621 14 is debugging
+621 36 is debugging
+621 22 is debugging
+621 10 is debugging
+621 18 is debugging
+621 32 is debugging
+621 44 is debugging
+621 6 is debugging
+631 9 has taken a dongle
+631 9 has taken a dongle
+631 31 has taken a dongle
+631 31 has taken a dongle
+631 31 is compiling
+631 9 is compiling
+631 27 has taken a dongle
+631 27 has taken a dongle
+631 27 is compiling
+631 7 has taken a dongle
+631 7 has taken a dongle
+631 7 is compiling
+641 30 is refactoring
+641 28 is refactoring
+641 8 is refactoring
+701 12 is debugging
+701 38 is debugging
+701 48 is debugging
+701 42 is debugging
+701 20 is debugging
+701 24 is debugging
+701 16 is debugging
+701 40 is debugging
+701 4 is debugging
+701 46 is debugging
+701 50 is debugging
+701 2 is debugging
+701 34 is debugging
+701 29 is debugging
+711 45 has taken a dongle
+711 45 has taken a dongle
+711 45 is compiling
+711 13 has taken a dongle
+711 11 has taken a dongle
+711 21 has taken a dongle
+711 33 has taken a dongle
+711 23 has taken a dongle
+711 23 has taken a dongle
+711 23 is compiling
+711 47 has taken a dongle
+711 47 has taken a dongle
+711 47 is compiling
+711 15 has taken a dongle
+711 15 has taken a dongle
+711 15 is compiling
+711 11 has taken a dongle
+711 11 is compiling
+711 3 has taken a dongle
+711 3 has taken a dongle
+711 3 is compiling
+711 39 has taken a dongle
+711 19 has taken a dongle
+711 25 has taken a dongle
+711 25 has taken a dongle
+711 25 is compiling
+711 21 has taken a dongle
+711 41 has taken a dongle
+711 41 has taken a dongle
+711 41 is compiling
+711 37 has taken a dongle
+711 37 has taken a dongle
+711 37 is compiling
+711 39 has taken a dongle
+711 5 has taken a dongle
+711 35 has taken a dongle
+711 35 has taken a dongle
+711 35 is compiling
+711 1 has taken a dongle
+711 1 has taken a dongle
+711 1 is compiling
+711 21 is compiling
+711 33 has taken a dongle
+711 33 is compiling
+711 13 has taken a dongle
+711 13 is compiling
+711 39 is compiling
+711 5 has taken a dongle
+711 5 is compiling
+711 19 has taken a dongle
+711 19 is compiling
+711 49 has taken a dongle
+711 49 has taken a dongle
+711 49 is compiling
+711 43 has taken a dongle
+711 43 has taken a dongle
+711 43 is compiling
+711 17 has taken a dongle
+711 17 has taken a dongle
+711 17 is compiling
+721 32 is refactoring
+721 10 is refactoring
+721 22 is refactoring
+721 14 is refactoring
+721 36 is refactoring
+721 18 is refactoring
+721 44 is refactoring
+721 26 is refactoring
+721 6 is refactoring
+731 7 is debugging
+731 9 is debugging
+731 31 is debugging
+731 27 is debugging
+741 30 has taken a dongle
+741 30 has taken a dongle
+741 30 is compiling
+741 28 has taken a dongle
+741 28 has taken a dongle
+741 28 is compiling
+741 8 has taken a dongle
+741 8 has taken a dongle
+741 8 is compiling
+801 38 is refactoring
+801 12 is refactoring
+801 20 is refactoring
+801 16 is refactoring
+801 50 is refactoring
+801 24 is refactoring
+801 2 is refactoring
+801 46 is refactoring
+801 40 is refactoring
+801 29 is refactoring
+801 42 is refactoring
+801 34 is refactoring
+801 4 is refactoring
+801 48 is refactoring
+811 11 is debugging
+811 13 is debugging
+811 19 is debugging
+811 41 is debugging
+811 39 is debugging
+811 35 is debugging
+811 25 is debugging
+811 3 is debugging
+811 45 is debugging
+811 23 is debugging
+811 15 is debugging
+811 47 is debugging
+811 33 is debugging
+811 21 is debugging
+811 43 is debugging
+811 49 is debugging
+811 5 is debugging
+811 37 is debugging
+811 17 is debugging
+811 1 is debugging
+821 26 has taken a dongle
+821 26 has taken a dongle
+821 6 has taken a dongle
+821 6 has taken a dongle
+821 6 is compiling
+821 14 has taken a dongle
+821 14 has taken a dongle
+821 14 is compiling
+821 32 has taken a dongle
+821 32 has taken a dongle
+821 32 is compiling
+821 10 has taken a dongle
+821 10 has taken a dongle
+821 10 is compiling
+821 26 is compiling
+821 18 has taken a dongle
+821 18 has taken a dongle
+821 18 is compiling
+821 22 has taken a dongle
+821 22 has taken a dongle
+821 22 is compiling
+821 36 has taken a dongle
+821 44 has taken a dongle
+821 44 has taken a dongle
+821 44 is compiling
+821 36 has taken a dongle
+821 36 is compiling
+831 9 is refactoring
+831 31 is refactoring
+831 27 is refactoring
+831 7 is refactoring
+841 28 is debugging
+841 30 is debugging
+841 8 is debugging
+901 46 has taken a dongle
+901 46 has taken a dongle
+901 46 is compiling
+901 50 has taken a dongle
+901 50 has taken a dongle
+901 50 is compiling
+901 4 has taken a dongle
+901 4 has taken a dongle
+901 4 is compiling
+901 16 has taken a dongle
+901 24 has taken a dongle
+901 42 has taken a dongle
+901 48 has taken a dongle
+901 16 has taken a dongle
+901 34 has taken a dongle
+901 34 has taken a dongle
+901 34 is compiling
+901 12 has taken a dongle
+901 12 has taken a dongle
+901 12 is compiling
+901 42 has taken a dongle
+901 42 is compiling
+901 48 has taken a dongle
+901 48 is compiling
+901 2 has taken a dongle
+901 2 has taken a dongle
+901 2 is compiling
+901 16 is compiling
+901 38 has taken a dongle
+901 38 has taken a dongle
+901 38 is compiling
+901 20 has taken a dongle
+901 20 has taken a dongle
+901 20 is compiling
+901 29 has taken a dongle
+901 24 has taken a dongle
+901 40 has taken a dongle
+901 29 has taken a dongle
+901 24 is compiling
+901 40 has taken a dongle
+901 40 is compiling
+901 29 is compiling
+911 11 is refactoring
+911 13 is refactoring
+911 37 is refactoring
+911 25 is refactoring
+911 35 is refactoring
+911 39 is refactoring
+911 41 is refactoring
+911 49 is refactoring
+911 33 is refactoring
+911 15 is refactoring
+911 5 is refactoring
+911 3 is refactoring
+911 21 is refactoring
+911 19 is refactoring
+911 17 is refactoring
+911 1 is refactoring
+911 47 is refactoring
+911 43 is refactoring
+911 45 is refactoring
+911 23 is refactoring
+921 22 is debugging
+921 6 is debugging
+921 44 is debugging
+921 26 is debugging
+921 18 is debugging
+921 14 is debugging
+921 36 is debugging
+921 32 is debugging
+921 10 is debugging
+--- stderr (first 200 lines) ---
+
+=== VERDICT: OK ===

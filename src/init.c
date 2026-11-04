@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 03:33:31 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/04 13:23:34 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/04 22:18:55 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,26 +96,25 @@ int	pick_cli_arguments(t_table *table, char **cli_args)
 		table->args[POLICY] = FIFO;
 	else if (!strcmp(cli_args[7], "edf"))
 		table->args[POLICY] = EDF;
-	return 0;
+	return (0);
 }
 
-int	init_table(t_table *table)
+int	init_table(t_table *table, char **cli_args)
 {
 	table->stop = 0;
 	table->ready = 0;
-
-	table->initialized_mutex[0] = 0;
-	table->initialized_mutex[1] = 0;
-
-	if (pthread_mutex_init(&table->log_lock, NULL))
+	memset(table->destroy_mutex, 0, 8);
+	if (pick_cli_arguments(table, cli_args))
 		return (1);
-	if (pthread_mutex_init(&table->state_lock, NULL))
-		return (1);
-	table->initialized_mutex[0] = 1;
-	table->initialized_mutex[1] = 1;
 	if (init_dongles(table))
 		return (1);
 	if (init_coders(table))
 		return (1);
+	if (pthread_mutex_init(&table->log_lock, NULL))
+		return (1);
+	table->destroy_mutex[0] = 1;
+	if (pthread_mutex_init(&table->state_lock, NULL))
+		return (1);
+	table->destroy_mutex[1] = 1;
 	return (0);
 }

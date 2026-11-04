@@ -6,11 +6,26 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/03 19:56:16 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/04 11:41:12 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/05 00:41:11 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <pthread.h>
+#include <unistd.h>
+
+void	wait_dongle(t_dongle *d)
+{
+	struct timespec	ts;
+	long long		wake;
+
+	wake = now_ms() + 5;
+	if (!d->busy)
+		wake = d->available_at;
+	ts.tv_sec = wake / 1000;
+	ts.tv_nsec = (wake % 1000) * 1000000;
+	pthread_cond_timedwait(&d->cond, &d->lock, &ts);
+}
 
 int	release_dongle(t_table *table, t_dongle *dongle)
 {
@@ -26,8 +41,9 @@ int	release_dongle(t_table *table, t_dongle *dongle)
 
 int	release_dongles(t_coder *coder)
 {
-	release_dongle(coder->table, coder->left);
-	release_dongle(coder->table, coder->right);
+	if (release_dongle(coder->table, coder->left)
+		|| release_dongle(coder->table, coder->right))
+		return (1);
 	return (0);
 }
 
@@ -41,10 +57,7 @@ int	take_dongle(t_coder *coder, t_table *table, t_dongle *dongle)
 			|| !heap_peek(dongle->queue, coder->id)))
 		wait_dongle(dongle);
 	if (is_stoped(table))
-	{
-		heap_remove(dongle->queue, coder->id);
 		return (pthread_mutex_unlock(&dongle->lock), 1);
-	}
 	heap_pop(dongle->queue);
 	dongle->busy = 1;
 	pthread_mutex_unlock(&dongle->lock);

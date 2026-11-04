@@ -1,0 +1,30 @@
+=== TEST: N=1 fifo [4 1000 100 100 100 1 10 fifo] ===
+Date    : 2026-11-04 23:50:36
+Dir     : /home/amissa/core/coding/cursus/codexion
+
+--- RUN ---
+Command     : ./codexion 4 1000 100 100 100 1 10 fifo 
+Timeout     : 20s
+Return code : 0
+--- stdout (first 5000 lines) ---
+1 4 has taken a dongle
+1 4 has taken a dongle
+1 4 is compiling
+1 2 has taken a dongle
+1 2 has taken a dongle
+1 2 is compiling
+101 2 is debugging
+101 4 is debugging
+111 3 has taken a dongle
+111 3 has taken a dongle
+111 3 is compiling
+111 1 has taken a dongle
+111 1 has taken a dongle
+111 1 is compiling
+201 4 is refactoring
+201 2 is refactoring
+211 3 is debugging
+211 1 is debugging
+--- stderr (first 200 lines) ---
+
+=== VERDICT: OK ===
