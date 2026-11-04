@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/30 22:31:05 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 23:02:17 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/04 10:44:02 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+int	radio_monitor_log(t_coder *coder, char *msg)
+{
+	t_table	*table;
+
+	table = coder->table;
+	if (pthread_mutex_lock(&table->log_lock))
+		return (1);
+	printf("%lld %d %s\n", now_ms() - table->start_time, coder->id, msg);
+	fflush(stdout);
+	if (pthread_mutex_unlock(&table->log_lock))
+		return (1);
+	return (0);
+}
 
 int	is_stoped(t_table *table)
 {
@@ -61,7 +75,7 @@ void	*monitor_routine(void *arg)
 			if (check_coder(table, coder_idx, &done))
 			{
 				stop_simulation(table);
-				if (radio_log(table->coders[coder_idx], "burned out"))
+				if (radio_monitor_log(table->coders[coder_idx], "burned out"))
 					return NULL;
 				return (NULL);
 			}

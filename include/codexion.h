@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:58:33 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/04 00:49:20 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/04 12:38:19 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CODEXION_H
 
 # include <unistd.h>
-# include <stdbool.h>
 # include <stdio.h>
 # include <string.h>
 # include <pthread.h>
@@ -61,7 +60,8 @@ typedef struct s_dongle
 	pthread_mutex_t		lock;
 	pthread_cond_t		cond;
 	pthread_condattr_t	attr;
-	int					initialized_mutex;
+	int					destroy_mutex;
+	int					destroy_conds[2]; // [0] for cond, [1] for condattr
 	int					id;
 	int					busy;
 	t_heap				*queue;
@@ -69,7 +69,7 @@ typedef struct s_dongle
 
 typedef struct s_coder
 {
-	long long	last_compile_start;
+	long long		last_compile_start;
 	pthread_t		thread;
 	t_dongle		*right;
 	t_dongle		*left;
@@ -96,10 +96,14 @@ typedef struct s_table
 	pthread_t		monitor;
 }	t_table;
 
+
+int			destroy_dongles(t_table *table);
+int			destroy_coders(t_table *table);
+void		general_cleanup(t_table table);
+
 int			cli_argument_parser(int argc, char **argv);
 int			valid_passed_argument(char **argv, int argSize);
 int			_display_error(enum e_ERROR err_status, void *extra_msg);
-
 
 void		swap_nodes(t_heap_node *a, t_heap_node *b);
 int			is_better(t_heap_node a, t_heap_node b);
@@ -113,7 +117,6 @@ int			release_dongle(t_table *table, t_dongle *dongle);
 int			release_dongles(t_coder *coder);
 int			take_dongle(t_coder *coder, t_table *table, t_dongle *dongle);
 int			take_dongles(t_coder *coder);
-
 
 t_heap		*init_queue(int capacity, int scheduler);
 t_heap_node	heap_pop(t_heap *heap);

@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 04:45:49 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/04 00:49:09 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/04 11:36:53 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	radio_log(t_coder *coder, char *msg)
 	table = coder->table;
 	if (pthread_mutex_lock(&table->log_lock))
 		return (1);
+	if (is_stoped(table))
+		return (pthread_mutex_unlock(&table->log_lock), 1);
 	printf("%lld %d %s\n", now_ms() - table->start_time, coder->id, msg);
 	fflush(stdout);
 	if (pthread_mutex_unlock(&table->log_lock))
@@ -74,7 +76,6 @@ void	stop_simulation(t_table *table)
 	}
 }
 
-
 int	create_coders_routine(t_table *table)
 {
 	int	i;
@@ -100,14 +101,12 @@ int	run_simulation(t_table *table)
 	int	i;
 
 	i = -1;
-	// table->start_time = malloc(sizeof(struct timespec));
 	table->start_time = now_ms();
 	if (pthread_create(&table->monitor, NULL,
 		(void *(*)(void *))monitor_routine, table))
 		return (1);
 	if (create_coders_routine(table))
 		return (1);
-
 	if (pthread_mutex_lock(&table->state_lock))
 		return (1);
 	table->ready = 1;

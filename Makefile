@@ -19,7 +19,8 @@ FILES       = main.c\
 			  monitor.c\
 			  queue.c\
 			  queue_helper.c\
-			  dongle.c
+			  dongle.c\
+			  cleanup.c
 
 
 BUILD_DIR   = build/

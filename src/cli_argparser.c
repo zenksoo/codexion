@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/25 23:57:35 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 19:51:11 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/04 13:26:10 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	is_valid_number(char *val)
 {
-	while (*val == '-' || *val == '+')
+	if (*val == '-' || *val == '+')
 		val++;
 	while (*val >= '0' && *val <= '9')
 		val++;
@@ -59,7 +59,7 @@ int	cli_argument_parser(int argc, char **argv)
 		if (validation_status == 1)
 			return (_display_error(
 					INVALID_ARGUMENT,
-					"the first 7 arguments must be posititive integer"));
+					"Invalid Argument!"));
 		else if (validation_status == 2)
 			return (_display_error(
 					INVALID_ARGUMENT,

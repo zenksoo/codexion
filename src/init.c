@@ -6,11 +6,24 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 03:33:31 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 20:26:33 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/04 13:23:34 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <string.h>
+
+int	init_condtion_variable(t_dongle *dongle, int clock)
+{
+	if (pthread_condattr_init(&dongle->attr)
+		|| pthread_condattr_setclock(&dongle->attr, clock))
+		return (1);
+	dongle->destroy_conds[1] = 1;
+	if (pthread_cond_init(&dongle->cond, &dongle->attr))
+		return (1);
+	dongle->destroy_conds[0] = 1;
+	return (0);
+}
 
 int	init_coders(t_table *table)
 {
@@ -34,6 +47,35 @@ int	init_coders(t_table *table)
 		if (pthread_mutex_init(&table->coders[i]->lock, NULL))
 			return (1);
 		table->coders[i]->initialized_mutex = 1;
+	}
+	return (0);
+}
+
+int	init_dongles(t_table *table)
+{
+	int	i;
+
+	table->dongles = malloc(sizeof(t_dongle) * table->n);
+	if (!table->dongles)
+		return (1);
+	i = -1;
+	while (++i < table->n)
+	{
+		table->dongles[i] = malloc(sizeof(t_dongle));
+		if (!table->dongles[i])
+			return (1);
+		table->dongles[i]->id = i;
+		table->dongles[i]->busy = 0;
+		table->dongles[i]->available_at = 0;
+		table->dongles[i]->destroy_mutex = 0;
+		memset(table->dongles[i]->destroy_conds, 0, 8);
+		table->dongles[i]->queue = init_queue(2, table->args[POLICY]);
+		if (!table->dongles[i]->queue
+			|| pthread_mutex_init(&table->dongles[i]->lock, NULL))
+			return (1);
+		table->dongles[i]->destroy_mutex = 1;
+		if (init_condtion_variable(table->dongles[i], CLOCK_MONOTONIC))
+			return (1);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/03 19:56:16 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/03 23:12:45 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/04 11:41:12 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	take_dongle(t_coder *coder, t_table *table, t_dongle *dongle)
 	heap_pop(dongle->queue);
 	dongle->busy = 1;
 	pthread_mutex_unlock(&dongle->lock);
-	radio_log(coder, "has taken a dongle");
+	if (radio_log(coder, "has taken a dongle"))
+		return (1);
 	return (0);
 }
 
@@ -67,39 +68,6 @@ int	take_dongles(t_coder *coder)
 			return (1);
 		if (coder->left && take_dongle(coder, coder->table, coder->left))
 			return (release_dongle(coder->table, coder->right), 1);
-	}
-	return (0);
-}
-
-int	init_dongles(t_table *table)
-{
-	int	i;
-
-
-	table->dongles = malloc(sizeof(t_dongle) * table->n);
-	if (!table->dongles)
-		return (1);
-	i = -1;
-	while (++i < table->n)
-	{
-		table->dongles[i] = malloc(sizeof(t_dongle));
-		if (!table->dongles[i])
-			return (1);
-		table->dongles[i]->id = i;
-		table->dongles[i]->busy = 0;
-		table->dongles[i]->available_at = 0;
-		table->dongles[i]->queue = init_queue(2, table->args[POLICY]);
-		if (!table->dongles[i]->queue)
-			return (1);
-		table->dongles[i]->initialized_mutex = 0;
-		if (pthread_mutex_init(&table->dongles[i]->lock, NULL))
-			return (1);
-		table->dongles[i]->initialized_mutex = 1;
-
-		pthread_condattr_init(&table->dongles[i]->attr);
-		pthread_condattr_setclock(&table->dongles[i]->attr, CLOCK_MONOTONIC);
-		if (pthread_cond_init(&table->dongles[i]->cond, &table->dongles[i]->attr))
-			return (1);
 	}
 	return (0);
 }
