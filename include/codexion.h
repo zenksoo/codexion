@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zenkso <zenkso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:58:33 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/05 00:16:19 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/05 18:17:01 by zenkso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_table
 	long long		start_time;
 	int				stop;
 	int				ready;
+	int				ready_coders;
 	pthread_mutex_t	state_lock;
 	pthread_mutex_t	log_lock;
 	int				destroy_mutex[2]; // [0] for log, [1] for state

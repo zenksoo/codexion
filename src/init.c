@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zenkso <zenkso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 03:33:31 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/04 22:18:55 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/05 18:17:28 by zenkso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	init_table(t_table *table, char **cli_args)
 {
 	table->stop = 0;
 	table->ready = 0;
+	table->ready_coders = 1;
 	memset(table->destroy_mutex, 0, 8);
 	if (pick_cli_arguments(table, cli_args))
 		return (1);
