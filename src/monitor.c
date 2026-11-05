@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/30 22:31:05 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/05 00:24:20 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/05 17:14:12 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	is_stoped(t_table *table)
 	return (stopped);
 }
 
-int	check_coder(t_table *table, int idx, int *done)
+int	is_coder_burnout(t_table *table, int idx, int *done)
 {
 	long long	last;
 	int			count;
@@ -49,11 +49,11 @@ int	check_coder(t_table *table, int idx, int *done)
 	pthread_mutex_lock(&table->coders[idx]->lock);
 	last = table->coders[idx]->last_compile_start;
 	count = table->coders[idx]->compile_count;
+	pthread_mutex_unlock(&table->coders[idx]->lock);
 	if (now_ms() - last >= table->args[T_BURNOUT])
-		return (pthread_mutex_unlock(&table->coders[idx]->lock), 1);
+		return (1);
 	if (count < table->args[C_REQUIRED])
 		*done = 0;
-	pthread_mutex_unlock(&table->coders[idx]->lock);
 	return (0);
 }
 
@@ -64,7 +64,7 @@ int	check_coders_burnout(t_table *table, int *done)
 	idx = -1;
 	while (++idx < table->n)
 	{
-		if (check_coder(table, idx, done))
+		if (is_coder_burnout(table, idx, done))
 		{
 			table->stop = 1;
 			pthread_mutex_unlock(&table->state_lock);

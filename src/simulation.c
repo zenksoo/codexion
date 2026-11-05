@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 04:45:49 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/05 00:41:21 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/05 17:21:52 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	simulation_sleep(t_table *table, long long ms)
 
 	target = now_ms() + ms;
 	while (now_ms() < target && !is_stoped(table))
-		usleep(500);
+		usleep(100);
 	if (is_stoped(table))
 		return (1);
 	return (0);
@@ -38,7 +38,7 @@ int	wait_for_start(void *arg)
 		ready = table->ready;
 		pthread_mutex_unlock(&table->state_lock);
 		if (!ready)
-			usleep(100);
+			usleep(10);
 	}
 	return (0);
 }
@@ -51,7 +51,7 @@ void	wake_coders(t_table *table)
 	while (++i < table->n)
 	{
 		pthread_mutex_lock(&table->dongles[i]->lock);
-		pthread_cond_signal(&table->dongles[i]->cond);
+		pthread_cond_broadcast(&table->dongles[i]->cond);
 		pthread_mutex_unlock(&table->dongles[i]->lock);
 	}
 }
