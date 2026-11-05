@@ -1,7 +1,6 @@
 GREEN_SEP   = @printf "\033[42m \033[49m  "
 RED_SEP     = @printf "\033[41m \033[49m  "
 
-
 CC          = cc
 CFLAGS      = -g -Wall -Wextra -Werror -pthread
 
@@ -23,9 +22,7 @@ FILES       = main.c\
 
 
 BUILD_DIR   = build/
-
 SRC_DIR     = src/
-
 INCLUDE_DIR = include/
 
 
@@ -66,6 +63,3 @@ fclean: clean
 
 re: fclean all
 
-
-run: $(NAME)
-	./$(NAME) 4 600 200 200 200 4 20 fifo

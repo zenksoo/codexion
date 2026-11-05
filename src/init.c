@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zenkso <zenkso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 03:33:31 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/05 18:17:28 by zenkso           ###   ########.fr       */
+/*   Updated: 2026/11/05 22:16:12 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-#include <string.h>
 
 int	init_condtion_variable(t_dongle *dongle, int clock)
 {
@@ -103,7 +102,6 @@ int	init_table(t_table *table, char **cli_args)
 {
 	table->stop = 0;
 	table->ready = 0;
-	table->ready_coders = 1;
 	memset(table->destroy_mutex, 0, 8);
 	if (pick_cli_arguments(table, cli_args))
 		return (1);

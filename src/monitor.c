@@ -6,14 +6,11 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/30 22:31:05 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/05 17:14:12 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/05 22:15:12 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-#include <pthread.h>
-#include <stdlib.h>
-#include <unistd.h>
 
 int	radio_monitor_log(t_coder *coder, char *msg)
 {
@@ -81,8 +78,7 @@ void	*monitor_routine(void *arg)
 	int		done;
 
 	table = (t_table *)arg;
-	if (wait_for_start(table))
-		return (NULL);
+	wait_for_start(table);
 	while (!is_stoped(table))
 	{
 		done = 1;

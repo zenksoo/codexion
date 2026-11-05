@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zenkso <zenkso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:58:33 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/05 18:17:01 by zenkso           ###   ########.fr       */
+/*   Updated: 2026/11/05 21:39:40 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct s_table
 	long long		start_time;
 	int				stop;
 	int				ready;
-	int				ready_coders;
 	pthread_mutex_t	state_lock;
 	pthread_mutex_t	log_lock;
 	int				destroy_mutex[2]; // [0] for log, [1] for state
@@ -106,7 +105,7 @@ int			compile(t_coder *coder);
 
 int			init_dongles(t_table *table);
 void		wait_dongle(t_dongle *d);
-int			release_dongle(t_table *table, t_dongle *dongle);
+int			release_dongle(t_coder *coder, t_dongle *dongle);
 int			release_dongles(t_coder *coder);
 int			take_dongle(t_coder *coder, t_table *table, t_dongle *dongle);
 int			take_dongles(t_coder *coder);
