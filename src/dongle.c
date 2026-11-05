@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/03 19:56:16 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/05 22:15:18 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/05 22:40:15 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	wait_dongle(t_dongle *d)
 		wake = d->available_at;
 	ts.tv_sec = wake / 1000;
 	ts.tv_nsec = (wake % 1000) * 1000000;
-
 	pthread_cond_timedwait(&d->cond, &d->lock, &ts);
 }
 
