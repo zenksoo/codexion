@@ -4,8 +4,7 @@
 
 ## Description
 
-Codexion is a concurrency simulation written in C using POSIX threads. It adapts
-the dining philosophers problem: coders sit around a circular table and share
+Codexion is a concurrency simulation written in C using POSIX threads. coders sit around a circular table and share
 USB dongles needed to compile their code.
 
 Each coder runs in a separate thread and repeats three activities: **compile,
@@ -203,12 +202,12 @@ variables directly, with no separate custom event abstraction.
 
 ## Resources
 
-- [Codexion subject, version 1.5](en.subject.txt) — project rules and evaluation requirements.
+- [The Linux Programming Interface](https://broman.dev/download/The%20Linux%20Programming%20Interface.pdf) — My Favorit reference To Linux and UNIX system programming.
+- [Mutex types and attr](https://www.2net.co.uk/tutorial/mutex_mutandis) - understanding mutex types and attributes
 - [POSIX thread creation](https://man7.org/linux/man-pages/man3/pthread_create.3.html) — thread entry points and lifecycle.
-- [POSIX mutex locking](https://man7.org/linux/man-pages/man3/pthread_mutex_lock.3p.html) — mutual exclusion and lock ownership.
+- [POSIX mutex](https://man7.org/linux/man-pages/man3/pthread_mutex_lock.3.html) — entry point for all mutex methods.
 - [POSIX condition-variable waits](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3p.html) — timed waits, mutex interaction, and spurious wakeups.
 - [Clock functions and `CLOCK_MONOTONIC`](https://man7.org/linux/man-pages/man2/clock_gettime.2.html) — measuring elapsed time.
-- [Dining Philosophers Problem and Deadlock](https://opencsf.org/Books/csf/html/DiningPhil.html) — resource contention, deadlock conditions, and prevention strategies.
 
 ### AI use
 
