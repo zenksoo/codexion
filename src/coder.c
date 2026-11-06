@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/30 18:24:05 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/05 22:15:29 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/06 23:06:22 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	radio_log(t_coder *coder, char *msg)
 	if (is_stoped(table))
 		return (pthread_mutex_unlock(&table->log_lock), 1);
 	printf("%lld %d %s\n", now_ms() - table->start_time, coder->id, msg);
-	fflush(stdout);
 	if (pthread_mutex_unlock(&table->log_lock))
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/25 23:57:35 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/06 22:57:20 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/06 23:05:59 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	display_error(void)
 {
 	fprintf(stderr, "ERROR!\n");
-	fflush(stderr);
 	return (1);
 }
 

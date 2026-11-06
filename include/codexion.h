@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:58:33 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/06 22:57:17 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/06 23:03:02 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 # include <stdio.h>
 # include <string.h>
 # include <pthread.h>
-# include <sys/time.h>
 # include <stdlib.h>
-# include <fcntl.h>
+# include <time.h>
 
 # define FIFO 1
 # define EDF 2
