@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 03:33:31 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/05 22:43:41 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/06 22:57:13 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	init_dongles(t_table *table)
 		table->dongles[i]->available_at = 0;
 		table->dongles[i]->destroy_mutex = 0;
 		memset(table->dongles[i]->destroy_conds, 0, 8);
-		table->dongles[i]->queue = init_queue(2, table->args[POLICY]);
+		table->dongles[i]->queue = init_queue(table->n, table->args[POLICY]);
 		if (!table->dongles[i]->queue
 			|| pthread_mutex_init(&table->dongles[i]->lock, NULL))
 			return (1);
