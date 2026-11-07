@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 04:45:49 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/05 22:15:53 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/07 17:14:24 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int	run_simulation(t_table *table)
 	int	i;
 
 	i = -1;
-	table->start_time = now_ms();
 	if (pthread_create(&table->monitor, NULL,
 			(void *(*)(void *))monitor_routine, table))
 		return (1);
@@ -87,6 +86,7 @@ int	run_simulation(t_table *table)
 		return (1);
 	if (pthread_mutex_lock(&table->state_lock))
 		return (1);
+	table->start_time = now_ms();
 	table->ready = 1;
 	if (pthread_mutex_unlock(&table->state_lock))
 		return (1);

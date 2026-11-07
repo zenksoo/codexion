@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/03 19:56:16 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/05 22:40:15 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/07 15:36:17 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ int	take_dongle(t_coder *coder, t_table *table, t_dongle *dongle)
 	heap_pop(dongle->queue);
 	dongle->busy = 1;
 	pthread_mutex_unlock(&dongle->lock);
-	if (radio_log(coder, "has taken a dongle"))
-		return (1);
 	return (0);
 }
 
@@ -81,5 +79,9 @@ int	take_dongles(t_coder *coder)
 		if (coder->left && take_dongle(coder, coder->table, coder->left))
 			return (release_dongle(coder, coder->right), 1);
 	}
+	if (radio_log(coder, "has taken a dongle"))
+		return (1);
+	if (radio_log(coder, "has taken a dongle"))
+		return (1);
 	return (0);
 }
