@@ -6,11 +6,12 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/03 19:56:16 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/07 15:36:17 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/08 17:21:22 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <pthread.h>
 
 void	wait_dongle(t_dongle *d)
 {
@@ -25,24 +26,30 @@ void	wait_dongle(t_dongle *d)
 	pthread_cond_timedwait(&d->cond, &d->lock, &ts);
 }
 
-int	release_dongle(t_coder *coder, t_dongle *dongle)
+void	updated_dongle_cooldown(t_table *table, t_dongle *dongle)
 {
-	if (!dongle)
-		return (1);
+	pthread_mutex_lock(&dongle->lock);
+	dongle->available_at = now_ms() + table->args[COOLDOWN];
+	pthread_mutex_unlock(&dongle->lock);
+}
+
+int	release_dongle(t_dongle *dongle)
+{
 	pthread_mutex_lock(&dongle->lock);
 	dongle->busy = 0;
-	dongle->available_at = now_ms() + coder->table->args[COOLDOWN];
 	pthread_cond_broadcast(&dongle->cond);
 	pthread_mutex_unlock(&dongle->lock);
 	return (0);
 }
 
-int	release_dongles(t_coder *coder)
+int	release_both_dongles(t_coder *coder)
 {
-	if (release_dongle(coder, coder->left))
+	if (release_dongle(coder->left))
 		return (1);
-	if (release_dongle(coder, coder->right))
+	updated_dongle_cooldown(coder->table, coder->left);
+	if (release_dongle(coder->right))
 		return (1);
+	updated_dongle_cooldown(coder->table, coder->right);
 	return (0);
 }
 
@@ -70,18 +77,17 @@ int	take_dongles(t_coder *coder)
 		if (coder->left && take_dongle(coder, coder->table, coder->left))
 			return (1);
 		if (coder->right && take_dongle(coder, coder->table, coder->right))
-			return (release_dongle(coder, coder->left), 1);
+			return (release_dongle(coder->left), 1);
 	}
 	else
 	{
 		if (coder->right && take_dongle(coder, coder->table, coder->right))
 			return (1);
 		if (coder->left && take_dongle(coder, coder->table, coder->left))
-			return (release_dongle(coder, coder->right), 1);
+			return (release_dongle(coder->right), 1);
 	}
-	if (radio_log(coder, "has taken a dongle"))
-		return (1);
-	if (radio_log(coder, "has taken a dongle"))
+	if (radio_log(coder, "has taken a dongle")
+		|| radio_log(coder, "has taken a dongle"))
 		return (1);
 	return (0);
 }

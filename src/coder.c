@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/30 18:24:05 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/06 23:06:22 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/08 17:25:23 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,16 @@ int	compile(t_coder *coder)
 	t_table	*table;
 
 	table = coder->table;
-	if (take_dongles(coder))
-		return (1);
 	pthread_mutex_lock(&coder->lock);
 	coder->last_compile_start = now_ms();
+	coder->compile_count++;
 	pthread_mutex_unlock(&coder->lock);
 	if (radio_log(coder, "is compiling")
 		|| simulation_sleep(table, coder->table->args[T_COMPILE]))
-		return (release_dongles(coder), 1);
+		return (release_both_dongles(coder), 1);
 	pthread_mutex_lock(&coder->lock);
-	coder->compile_count++;
 	pthread_mutex_unlock(&coder->lock);
-	release_dongles(coder);
+	release_both_dongles(coder);
 	return (0);
 }
 
@@ -55,10 +53,10 @@ void	*coder_routine(void *arg)
 	coder = arg;
 	table = coder->table;
 	wait_for_start((void *)coder->table);
-	if (is_stoped(table))
-		return (NULL);
 	while (!is_stoped(coder->table))
 	{
+		if (take_dongles(coder))
+			return (NULL);
 		if (compile(coder))
 			return (NULL);
 		if (radio_log(coder, "is debugging")

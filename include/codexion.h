@@ -6,7 +6,7 @@
 /*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 12:58:33 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/06 23:03:02 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/08 17:19:30 by amissa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,56 +88,58 @@ typedef struct s_table
 	pthread_t		monitor;
 }	t_table;
 
+// initial all needed resources
+int			init_condtion_variable(t_dongle *dongle, int clock);
+int			init_table(t_table *table);
+int			init_dongles(t_table *table);
+int			init_coders(t_table *table);
+
+// shared methods between threads
+int			wait_for_start(void *arg);
+int			is_stoped(t_table *table);
+
+// threads functions
+void		*coder_routine(void *arg);
+void		*monitor_routine(void *arg);
+
+int			create_coders_routine(t_table *table);
+
+// free memeory
 int			destroy_dongles(t_table *table);
 int			destroy_coders(t_table *table);
 void		general_cleanup(t_table *table);
 
-int			cli_argument_parser(int argc, char **argv);
+// method for parsing argument
+int			pick_cli_arguments(t_table *table, char **cli_args);
 int			valid_passed_argument(char **argv, int argSize);
-int			display_error(void);
+int			cli_argument_parser(int argc, char **argv);
 
+// methods for heap implementation
 void		swap_nodes(t_heap_node *a, t_heap_node *b);
 int			is_better(t_heap_node a, t_heap_node b);
-
-void		*coder_routine(void *arg);
-int			compile(t_coder *coder);
-
-int			init_dongles(t_table *table);
-void		wait_dongle(t_dongle *d);
-int			release_dongle(t_coder *coder, t_dongle *dongle);
-int			release_dongles(t_coder *coder);
-int			take_dongle(t_coder *coder, t_table *table, t_dongle *dongle);
-int			take_dongles(t_coder *coder);
-
 t_heap		*init_queue(int capacity, int scheduler);
 t_heap_node	heap_pop(t_heap *heap);
 int			heap_push(t_heap *heap, t_coder *coder, int policy);
 int			heap_peek(t_heap *heap, int target);
-void		destroy_queue(t_heap *heap);
-
 void		shift_up(t_heap *heap, int i);
 void		shift_down(t_heap *heap, int i);
 void		heap_remove(t_heap *heap, int id);
+void		destroy_queue(t_heap *heap);
 
-int			init_coders(t_table *table);
-int			init_table(t_table *table, char **cli_args);
-int			pick_cli_arguments(t_table *table, char **cli_args);
-
-int			wait_for_start(void *arg);
-int			run_simulation(t_table *table);
-int			simulation_sleep(t_table *table, long long ms);
+// coder actions
+void		wait_dongle(t_dongle *d);
+int			take_dongles(t_coder *coder);
+int			take_dongle(t_coder *coder, t_table *table, t_dongle *dongle);
+int			release_both_dongles(t_coder *coder);
+int			release_dongle(t_dongle *dongle);
+int			compile(t_coder *coder);
 void		wake_coders(t_table *table);
 
-void		*monitor_routine(void *arg);
-
-int			is_stoped(t_table *table);
-
-double		get_power(int base, int exp);
-
-double		us_to_ms(double us);
-long long	now_ms(void);
-int			ms_sleep(long long ms, t_table *table);
-long long	timespec_to_ms(struct timespec ts);
+// entry-point of the simulation
+int			run_simulation(t_table *table);
+int			simulation_sleep(t_table *table, long long ms);
 
 int			radio_log(t_coder *coder, char *msg);
+
+long long	now_ms(void);
 #endif
