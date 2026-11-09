@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dongle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amissa <amissa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zenkso <zenkso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/03 19:56:16 by amissa            #+#    #+#             */
-/*   Updated: 2026/11/08 17:21:22 by amissa           ###   ########.fr       */
+/*   Updated: 2026/11/09 16:25:55 by zenkso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,55 @@ int	take_dongle(t_coder *coder, t_table *table, t_dongle *dongle)
 
 int	take_dongles(t_coder *coder)
 {
-	if (coder->id % 2 == 0)
-	{
-		if (coder->left && take_dongle(coder, coder->table, coder->left))
-			return (1);
-		if (coder->right && take_dongle(coder, coder->table, coder->right))
-			return (release_dongle(coder->left), 1);
-	}
-	else
-	{
-		if (coder->right && take_dongle(coder, coder->table, coder->right))
-			return (1);
-		if (coder->left && take_dongle(coder, coder->table, coder->left))
-			return (release_dongle(coder->right), 1);
-	}
-	if (radio_log(coder, "has taken a dongle")
-		|| radio_log(coder, "has taken a dongle"))
-		return (1);
+	// struct timespec ts; // time to wait until dongle be avaible
+
+	pthread_mutex_lock(&coder->left->lock);
+	heap_push(coder->left->queue, coder, coder->table->args[POLICY]);
+	pthread_mutex_unlock(&coder->left->lock);
+	pthread_mutex_lock(&coder->right->lock);
+	heap_push(coder->right->queue, coder, coder->table->args[POLICY]);
+	pthread_mutex_unlock(&coder->right->lock);
+
+	// check i'm the first in the queue on both dongles
+	//
+	while (!heap_peek(coder->left->queue, coder->id))
+		;
+	while (!heap_peek(coder->right->queue, coder->id))
+		;
+
+	while (coder->left->busy && coder->right->busy)
+		;
+
+	while (coder->left->available_at > coder->right->available_at && now_ms() < coder->left->available_at)
+		wait_dongle(coder->left);
+	while (coder->right->available_at > coder->left->available_at && now_ms() < coder->right->available_at)
+		wait_dongle(coder->right);
+
+	pthread_mutex_lock(&coder->right->lock);
+	heap_pop(coder->right->queue);
+	coder->right->busy = 1;
+	pthread_mutex_unlock(&coder->right->lock);
+	pthread_mutex_lock(&coder->left->lock);
+	heap_pop(coder->left->queue);
+	coder->left->busy = 1;
+	pthread_mutex_unlock(&coder->left->lock);
+
+	// if (coder->id % 2 == 0)
+	// {
+	// 	if (coder->left && take_dongle(coder, coder->table, coder->left))
+	// 		return (1);
+	// 	if (coder->right && take_dongle(coder, coder->table, coder->right))
+	// 		return (release_dongle(coder->left), 1);
+	// }
+	// else
+	// {
+	// 	if (coder->right && take_dongle(coder, coder->table, coder->right))
+	// 		return (1);
+	// 	if (coder->left && take_dongle(coder, coder->table, coder->left))
+	// 		return (release_dongle(coder->right), 1);
+	// }
+	// if (radio_log(coder, "has taken a dongle")
+	// 	|| radio_log(coder, "has taken a dongle"))
+	// 	return (1);
 	return (0);
 }
